@@ -1,0 +1,21 @@
+    <h1>Articles View</h1>
+
+<?php
+
+    var_dump(count($data));
+
+    if (empty($data))
+        echo "empty<br>";
+    else
+        echo "sth<br>";
+
+    foreach ($data as $row) {
+        foreach ($row as $cell) {
+            echo $cell." ";
+        }
+        echo "<br>";
+    }
+
+?>
+
+    <h1>END Articles View</h1>
