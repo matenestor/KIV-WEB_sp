@@ -29,27 +29,6 @@ function autoloadFunc($class) {
 spl_autoload_register("autoloadFunc");
 
 
-// ----------------------------------------------
-//$pdo = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USER, DB_PASS);
-//// set encoding UTF-8
-//$pdo->exec("set names utf8");
-//
-//if ($pdo) echo "pdo sth<br>";
-//else      echo "pdo empty<br>";
-//
-//$stmt = $pdo->query("SELECT * FROM ".TABLE_ARTICLE);
-//
-//if ($stmt) echo "stmt sth<br>";
-//else       echo "stmt empty<br>";
-//
-//$arr = $stmt->fetchAll();
-//foreach ($arr as $row) {
-//    print_r($row);
-//    echo "<br>";
-//}
-// ----------------------------------------------
-
-
 // route request
 if (isset($_GET['page']) && array_key_exists($_GET['page'], WEB_PAGES)) {
     $pageKey = $_GET['page'];
@@ -58,14 +37,9 @@ else {
     $pageKey = DEFAULT_WEB_PAGE_KEY;
 }
 
-echo "pageinfo<br>";
 // array with info about required page
 $pageInfo = WEB_PAGES[$pageKey];
-
-echo "new contro<br>";
 // controller of required page
 $pageController = new $pageInfo["class_name"];
-
-echo "show<br>";
 // show view of required page
 echo $pageController->show();
