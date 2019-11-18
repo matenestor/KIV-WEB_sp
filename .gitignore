@@ -94,5 +94,5 @@ fabric.properties
 
 # disable css/ and js/ folder -- i will keep them only for offline development
 # there is nothing coded from my side
-css/
-js/
+#css/
+#js/
