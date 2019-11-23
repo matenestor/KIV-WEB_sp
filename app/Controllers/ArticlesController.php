@@ -23,11 +23,14 @@ class ArticlesController extends ABaseController {
         return $template;
     }
 
+    /**
+     * Called to get whole view of web page.
+     *
+     * @return false|string
+     */
     private function getView() {
         // create variables for template
         // without this, it's necessary to type also $this-> into template
-        $data = $this->data;
-        $view = $this->view;
         $title = $this->head["title"];
         $description = $this->head["description"];
 
@@ -41,5 +44,13 @@ class ArticlesController extends ABaseController {
         $template = ob_get_clean();
 
         return $template;
+    }
+
+    /**
+     * Called from Layout.phtml to get main content of web page.
+     */
+    private function getContent() {
+        $data = $this->data;
+        require APP_PATH.DIR_VIEWS.$this->view.EXT_VIEW;
     }
 }

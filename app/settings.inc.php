@@ -22,6 +22,8 @@ define("TABLE_REVIEW", "review");
 
 // directories of mvc components
 
+/** Index path */
+define("IDX_PATH", "conf/index.php?");
 /** Base path for requiring/including */
 define("APP_PATH", "D:/ws/PHP/KIV-WEB_sp/app/");
 /** Directory of controllers */
