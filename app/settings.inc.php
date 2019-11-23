@@ -9,7 +9,7 @@ define("DB_NAME", "web_conference");
 /** Database username */
 define("DB_USER", "root");
 /** Database password */
-define("DB_PASS", "root");
+define("DB_PASS", "");
 
 // database tables
 
@@ -23,7 +23,7 @@ define("TABLE_REVIEW", "review");
 // directories of mvc components
 
 /** Base path for requiring/including */
-define("APP_PATH", "/home/kuub/ws/KIV-WEB_sp/app/");
+define("APP_PATH", "D:/ws/PHP/KIV-WEB_sp/app/");
 /** Directory of controllers */
 define("DIR_CONTROLLERS", "Controllers/");
 /** Directory of models */
@@ -38,10 +38,8 @@ define("EXT_VIEW", ".phtml");
 
 // footer and header
 
-/** Header constant */
-define("HEADER", "HeaderView");
-/** Footer constant */
-define("FOOTER", "FooterView");
+/** Basic layout with header and footer */
+define("LAYOUT", "Layout");
 
 // available websites
 

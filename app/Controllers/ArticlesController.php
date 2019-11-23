@@ -17,12 +17,17 @@ class ArticlesController extends ABaseController {
     public function show() {
         // get all articles in database
         $this->data = $this->db->getAllArticles();
+        // get created template
+        $template = $this->getView();
 
+        return $template;
+    }
+
+    private function getView() {
         // create variables for template
         // without this, it's necessary to type also $this-> into template
-        $msg = "<h2>HEADER</h2>";
-        $msg2 = "<h2>FOOTER</h2>";
         $data = $this->data;
+        $view = $this->view;
         $title = $this->head["title"];
         $description = $this->head["description"];
 
@@ -30,9 +35,7 @@ class ArticlesController extends ABaseController {
         ob_clean();
 
         // create template -- header + body + footer
-        require APP_PATH.DIR_VIEWS.HEADER.EXT_VIEW;
-        require APP_PATH.DIR_VIEWS.$this->view.EXT_VIEW;
-        require APP_PATH.DIR_VIEWS.FOOTER.EXT_VIEW;
+        require APP_PATH.DIR_VIEWS.LAYOUT.EXT_VIEW;
 
         // get template as string and clean output buffer
         $template = ob_get_clean();

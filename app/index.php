@@ -43,3 +43,18 @@ $pageInfo = WEB_PAGES[$pageKey];
 $pageController = new $pageInfo["class_name"];
 // show view of required page
 echo $pageController->show();
+
+/*
+ * TODO
+ *
+ * [ ] router class
+ * [ ] user registration
+ * [ ] user login (includes sessions)
+ * [ ] user duties
+ *     [ ] author
+ *     [ ] reviewer
+ *     [ ] admin
+ * [ ] view templates for everything
+ * [ ] access to DB for everyone
+ * [ ] security patch
+ */

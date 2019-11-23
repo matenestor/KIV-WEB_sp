@@ -1,7 +1,7 @@
 <?php
 
 
-class ABaseModel {
+class BaseModel {
     private $pdo;
 
     public function __construct() {

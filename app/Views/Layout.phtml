@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>main</title>
+    <title><?= $title ?></title>
 
     <!--    <base href="localhost" />-->
     <base href="../../" />
-    <meta name="description" content="main page" />
+    <meta name="description" content="<?= $description ?>" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -23,9 +23,9 @@
 
 <body>
 
-<!--------------------->
+<!----------------->
 <!--  navigation -->
-<!--------------------->
+<!----------------->
 
 <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark text-primary">
@@ -76,7 +76,7 @@
 
 <main>
     <div class="container application-main">
-
+        <?= require APP_PATH.DIR_VIEWS.$view.EXT_VIEW; ?>
     </div>
 </main>
 

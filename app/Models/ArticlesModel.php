@@ -1,6 +1,6 @@
 <?php
 
-class ArticlesModel extends ABaseModel {
+class ArticlesModel extends BaseModel {
 
     /**
      * Returns all articles.
