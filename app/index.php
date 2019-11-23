@@ -39,7 +39,7 @@ $router->route();
 /*
  * TODO
  *
- * [ ] router class
+ * [x] router class
  * [ ] user registration
  * [ ] user login (includes sessions)
  * [ ] user duties

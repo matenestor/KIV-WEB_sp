@@ -47,9 +47,16 @@ define("LAYOUT", "Layout");
 
 /** Available websites */
 define("WEB_PAGES", array(
-    "articles" => array("file_name" => "ArticlesController.php",
-                        "class_name" => "ArticlesController",
-                        "title" => "Articles"),
+
+    "home" => array(
+        "file_name" => "HomeController.php",
+        "class_name" => "HomeController",
+        "title" => "Home page"),
+
+    "articles" => array(
+        "file_name" => "ArticlesController.php",
+        "class_name" => "ArticlesController",
+        "title" => "Articles"),
 ));
 
 /** Key of default website key */
