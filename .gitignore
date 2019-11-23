@@ -96,3 +96,7 @@ fabric.properties
 # there is nothing coded from my side
 css/
 js/
+
+# my dev stuff
+templates/
+tmp/
