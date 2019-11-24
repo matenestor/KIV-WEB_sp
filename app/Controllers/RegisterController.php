@@ -5,8 +5,7 @@ class RegisterController extends ABaseController {
 
     public function __construct() {
         $this->view = "RegisterView";
-        $this->head["title"] = "Registration";
-        $this->head["description"] = "This is registration page for new users.";
+        $this->title = "Registration";
     }
 
     public function show() {
@@ -15,8 +14,7 @@ class RegisterController extends ABaseController {
         // get created template
         $template = parent::getView(
             $this->view,
-            $this->head["title"],
-            $this->head["description"]
+            $this->title
         );
 
         return $template;

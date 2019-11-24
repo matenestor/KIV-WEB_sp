@@ -7,8 +7,7 @@ class ArticlesController extends ABaseController {
 
     public function __construct() {
         $this->view = "ArticlesView";
-        $this->head["title"] = "Articles";
-        $this->head["description"] = "This is web page with articles.";
+        $this->title = "Articles";
         $this->db = new ArticlesModel();
 
         // note: $this->data is going to be filled in show func
@@ -21,8 +20,7 @@ class ArticlesController extends ABaseController {
         // get created template
         $template = parent::getView(
             $this->view,
-            $this->head["title"],
-            $this->head["description"],
+            $this->title,
             $this->data
         );
 

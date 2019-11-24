@@ -7,20 +7,20 @@ class LoginController extends ABaseController {
 
     public function __construct() {
         $this->view = "LoginView";
-        $this->head["title"] = "Log in";
-        $this->head["description"] = "This is log in page for users.";
+        $this->title = "Log in";
         $this->login = new LoginService();
     }
 
     public function show() {
         // get view, which should be displayed
-        $this->view = $this->login->checkLogin();
+        $meta = $this->login->checkLogin();
+        $this->view = $meta[0];
+        $this->title = $meta[1];
 
         // get created template
         $template = parent::getView(
             $this->view,
-            $this->head["title"],
-            $this->head["description"]
+            $this->title
         );
 
         return $template;

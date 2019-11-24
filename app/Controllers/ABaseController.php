@@ -2,20 +2,19 @@
 
 
 abstract class ABaseController {
-    protected $data = array();
     protected $view = "";
-    protected $head = array("title" => "", "description" => "");
+    protected $title = "";
+    protected $data = array();
 
     /**
      * Called to get whole view of web page.
      *
      * @param $view
      * @param $title
-     * @param $descr
      * @param null $data Data to be displayed
      * @return false|string
      */
-    protected function getView($view, $title, $descr, $data=null) {
+    protected function getView($view, $title, $data=null) {
         // clean output buffer
         ob_clean();
 

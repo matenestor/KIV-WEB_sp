@@ -55,16 +55,16 @@ class LoginService {
     }
 
     /**
-     * Return which view should be displayed.
+     * Return which view should be displayed and its title.
      *
-     * @return string
+     * @return array
      */
     public function checkLogin() {
-        $view = "LoginView";
+        $meta = array("LoginView", "Log in");
 
         // user want to log in or out
         if (isset($_POST["submit_login"])) {
-            $view = "HomeView";
+            $meta = array("HomeView", "Home page");
 
             // log in request
             if($_POST["submit_login"] == "login") {
@@ -81,9 +81,9 @@ class LoginService {
         }
         // user is already logged in
         elseif ($this->isUserLoged()) {
-            $view = "UserView";
+            $meta = array("UserView", $this->getUserInfo()[0]);
         }
 
-        return $view;
+        return $meta;
     }
 }

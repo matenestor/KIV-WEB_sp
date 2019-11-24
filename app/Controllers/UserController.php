@@ -7,16 +7,14 @@ class UserController extends ABaseController {
     public function __construct() {
         $this->login = new LoginService();
         $this->view = "UserView";
-        $this->head["title"] = $this->login->getUserInfo()[0];
-        $this->head["description"] = "This is page of logged in user.";
+        $this->title = $this->login->getUserInfo()[0];
     }
 
     public function show() {
         // get created template
         $template = parent::getView(
             $this->view,
-            $this->head["title"],
-            $this->head["description"]
+            $this->title
         );
 
         return $template;
