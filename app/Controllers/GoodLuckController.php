@@ -1,12 +1,12 @@
 <?php
 
 
-class HomeController extends ABaseController {
+class GoodLuckController extends ABaseController {
 
     public function __construct() {
-        $this->view = "HomeView";
-        $this->head["title"] = "HomePage";
-        $this->head["description"] = "This is home page of conference web site.";
+        $this->view = "GoodLuckView";
+        $this->head["title"] = "Good luck";
+        $this->head["description"] = "This page wishes you good luck.";
     }
 
     public function show() {

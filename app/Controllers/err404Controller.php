@@ -1,12 +1,12 @@
 <?php
 
 
-class HomeController extends ABaseController {
+class err404Controller extends ABaseController {
 
     public function __construct() {
-        $this->view = "HomeView";
-        $this->head["title"] = "HomePage";
-        $this->head["description"] = "This is home page of conference web site.";
+        $this->view = "err404View";
+        $this->head["title"] = "error 404";
+        $this->head["description"] = "This is error 404 page.";
     }
 
     public function show() {

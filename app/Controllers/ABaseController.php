@@ -12,7 +12,7 @@ abstract class ABaseController {
      * @param $view
      * @param $title
      * @param $descr
-     * @param null $data
+     * @param null $data Data to be displayed
      * @return false|string
      */
     protected function getView($view, $title, $descr, $data=null) {

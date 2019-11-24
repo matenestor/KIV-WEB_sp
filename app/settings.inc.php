@@ -22,10 +22,12 @@ define("TABLE_REVIEW", "review");
 
 // directories of mvc components
 
+/** Root folder of app */
+define("ROOT_PATH", "KIV-WEB_sp/");
 /** Index path */
-define("IDX_PATH", "conf/index.php?");
+define("INDEX", ROOT_PATH."index.php");
 /** Base path for requiring/including */
-define("APP_PATH", "D:/ws/PHP/KIV-WEB_sp/app/");
+define("APP_PATH", "app/");
 /** Directory of controllers */
 define("DIR_CONTROLLERS", "Controllers/");
 /** Directory of models */
@@ -47,17 +49,15 @@ define("LAYOUT", "Layout");
 
 /** Available websites */
 define("WEB_PAGES", array(
-
-    "home" => array(
-        "file_name" => "HomeController.php",
-        "class_name" => "HomeController",
-        "title" => "Home page"),
-
-    "articles" => array(
-        "file_name" => "ArticlesController.php",
-        "class_name" => "ArticlesController",
-        "title" => "Articles"),
-));
+    "home"      => "HomeController",
+    "articles"  => "ArticlesController",
+    "login"     => "LoginController",
+    "register"  => "RegisterController",
+    "404"       => "err404Controller",
+    "goodluck"  => "GoodLuckController")
+);
 
 /** Key of default website key */
-define("DEFAULT_WEB_PAGE_KEY", "articles");
+define("WEB_DEFAULT", "home");
+/** Key of default website key */
+define("WEB_NOT_FOUND", "404");
