@@ -15,6 +15,11 @@ class RouterService {
                 $page = WEB_NOT_FOUND;
             }
         }
+        // request for logout, $_POST value goes over LoginController to LoginService,
+        // where user is logged out
+        elseif (isset($_POST["submit_login"])) {
+            $page = WEB_LOGIN;
+        }
         // coming in without request
         else {
             $page = WEB_DEFAULT;

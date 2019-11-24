@@ -62,12 +62,8 @@ class LoginService {
     public function checkLogin() {
         $view = "LoginView";
 
-        // user is already logged in
-        if ($this->isUserLoged()) {
-            $view = "UserView";
-        }
         // user want to log in or out
-        elseif (isset($_POST["submit_login"])) {
+        if (isset($_POST["submit_login"])) {
             $view = "HomeView";
 
             // log in request
@@ -82,6 +78,10 @@ class LoginService {
             else {
                 echo "<script>alert('Error: unknown request on server side.');</script>";
             }
+        }
+        // user is already logged in
+        elseif ($this->isUserLoged()) {
+            $view = "UserView";
         }
 
         return $view;

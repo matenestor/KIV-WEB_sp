@@ -13,12 +13,6 @@ class LoginController extends ABaseController {
     }
 
     public function show() {
-        echo "post<br>";
-        print_r($_POST);
-        echo "<br>get<br>";
-        print_r($_GET);
-        echo "<br>";
-
         // get view, which should be displayed
         $this->view = $this->login->checkLogin();
 //

@@ -57,7 +57,9 @@ define("WEB_PAGES", array(
     "goodluck"  => "GoodLuckController")
 );
 
-/** Key of default website key */
+/** Default website key */
 define("WEB_DEFAULT", "home");
-/** Key of default website key */
+/** Default website key */
 define("WEB_NOT_FOUND", "404");
+/** Key of login page */
+define("WEB_LOGIN", "login");

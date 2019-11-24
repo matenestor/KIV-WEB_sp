@@ -38,3 +38,10 @@ $router->route();
 
 //unset($_SESSION["username"]);
 //unset($_SESSION["date"]);
+
+
+//echo "post<br>";
+//print_r($_POST);
+//echo "<br>get<br>";
+//print_r($_GET);
+//echo "<br>";
