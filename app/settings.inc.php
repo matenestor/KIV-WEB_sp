@@ -51,6 +51,7 @@ define("LAYOUT", "Layout");
 define("WEB_PAGES", array(
     "home"      => "HomeController",
     "articles"  => "ArticlesController",
+    "user"      => "UserController",
     "login"     => "LoginController",
     "register"  => "RegisterController",
     "404"       => "err404Controller",
