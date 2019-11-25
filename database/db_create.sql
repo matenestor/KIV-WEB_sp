@@ -60,12 +60,12 @@ CREATE TABLE IF NOT EXISTS `article` (
 # DROP TABLE IF EXISTS `review`;
 CREATE TABLE IF NOT EXISTS `review` (
   `id_review` int(11) NOT NULL,
-  `user_id_user` int(11) NOT NULL,
+  `user_id_user` int(11) DEFAULT NULL,
   `article_id_article` int(11) NOT NULL,
-  `originality` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci NOT NULL,
-  `format` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci NOT NULL,
-  `language` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci NOT NULL,
-  `comment` text COLLATE utf8_unicode_ci NOT NULL
+  `originality` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `format` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `language` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
