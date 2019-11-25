@@ -5,7 +5,7 @@ class ArticlesModel extends BaseModel {
     /**
      * Returns all articles.
      *
-     *  Get all users in DB
+     *  Get all articles in DB
      *  @return array
      */
     public function getAllArticles():array {
