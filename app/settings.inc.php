@@ -50,7 +50,7 @@ define("LAYOUT", "Layout");
 /** Available websites */
 define("WEB_PAGES", array(
     "home"      => "HomeController",
-    "articles"  => "ArticlesController",
+    "articles"  => "ArticlesPublicController",
     "user"      => "UserController",
     "login"     => "LoginController",
     "register"  => "RegisterController",

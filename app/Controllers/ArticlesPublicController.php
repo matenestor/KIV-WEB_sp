@@ -1,12 +1,12 @@
 <?php
 
 
-class ArticlesController extends ABaseController {
+class ArticlesPublicController extends ABaseController {
 
     private $db;
 
     public function __construct() {
-        $this->view = "ArticlesView";
+        $this->view = "ArticlesPublicView";
         $this->title = "Articles";
         $this->db = new ArticlesModel();
 
