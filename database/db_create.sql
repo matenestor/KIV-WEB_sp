@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `review` (
   `id_review` int(11) NOT NULL,
   `user_id_user` int(11) NOT NULL,
   `article_id_article` int(11) NOT NULL,
-  `originality` enum('0-unusable','1-poor','2-normal','3-great') COLLATE utf8_unicode_ci NOT NULL,
-  `format` enum('0-unusable','1-poor','2-normal','3-great') COLLATE utf8_unicode_ci NOT NULL,
-  `language` enum('0-unusable','1-poor','2-normal','3-great') COLLATE utf8_unicode_ci NOT NULL,
+  `originality` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci NOT NULL,
+  `format` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci NOT NULL,
+  `language` enum('unusable','poor','normal','great') COLLATE utf8_unicode_ci NOT NULL,
   `comment` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `first_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `role` enum('admin','reviewer','publisher') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'publisher',
+  `role` enum('admin','reviewer','author') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'author',
   `last_login` datetime NOT NULL DEFAULT current_timestamp(),
   `access` enum('ok','blocked') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ok',
   `password` varchar(256) COLLATE utf8_unicode_ci NOT NULL

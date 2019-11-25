@@ -11,7 +11,7 @@
 -- Dumping data for table `user`
 --
 
--- role = enum('admin', 'reviewer', 'publisher')
+-- role = enum('admin', 'reviewer', 'author')
 -- access = enum(`ok`, `blocked`)
 
 INSERT INTO `user` 
@@ -27,8 +27,8 @@ VALUES
 	(5, 'reviewer4', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', 'password'),
 
 	-- publisher
-	(6, 'publisher1', 'name', 'surname', 'publisher', CURRENT_TIMESTAMP(), 'ok', 'password'),
-	(7, 'publisher2', 'name', 'surname', 'publisher', CURRENT_TIMESTAMP(), 'ok', 'password');
+	(6, 'author1', 'name', 'surname', 'author', CURRENT_TIMESTAMP(), 'ok', 'password'),
+	(7, 'author2', 'name', 'surname', 'author', CURRENT_TIMESTAMP(), 'ok', 'password');
 
 --
 -- Dumping data for table `article`
@@ -39,30 +39,30 @@ VALUES
 INSERT INTO `article` 
 	(`id_article`, `user_id_user`, `title`, `author`, `date`, `file`, `status`, `abstract`) 
 VALUES 
-	(1, 6, 'title1', 'publisher1', CURRENT_TIMESTAMP(), 'file1.pdf', 'reviewing', 'abstract1'),
-	(2, 6, 'title2', 'publisher1', CURRENT_TIMESTAMP(), 'file2.pdf', 'reviewing', 'abstract2'),
-	(3, 7, 'title3', 'publisher2', CURRENT_TIMESTAMP(), 'file3.pdf', 'reviewing', 'abstract3');
+	(1, 6, 'title1', 'author1', CURRENT_TIMESTAMP(), 'file1.pdf', 'reviewing', 'abstract1'),
+	(2, 6, 'title2', 'author1', CURRENT_TIMESTAMP(), 'file2.pdf', 'reviewing', 'abstract2'),
+	(3, 7, 'title3', 'author2', CURRENT_TIMESTAMP(), 'file3.pdf', 'reviewing', 'abstract3');
 
 --
 -- Dumping data for table `review`
 --
 
--- originality, format, language = enum('0-unusable', '1-poor', '2-normal', '3-great')
+-- originality, format, language = enum('unusable=0', 'poor=1', 'normal=2', 'great=3')
 
 INSERT INTO `review` 
 	(`id_review`, `user_id_user`, `article_id_article`, `originality`, `format`, `language`, `comment`) 
 VALUES
 	-- article 1
-	(1, 2, 1, '0-unusable', '1-poor', '2-normal', 'review comment 1 on article 1'),
-	(2, 3, 1, '1-poor', '2-normal', '3-great', 'review comment 2 on article 1'),
-	(3, 4, 1, '2-normal', '3-great', '0-unusable', 'review comment 3 on article 1'),
+	(1, 2, 1, 'unusable', 'poor', 'normal', 'review comment 1 on article 1'),
+	(2, 3, 1, 'poor', 'normal', 'great', 'review comment 2 on article 1'),
+	(3, 4, 1, 'normal', 'great', 'unusable', 'review comment 3 on article 1'),
 
 	-- article 2
-	(4, 3, 2, '0-unusable', '1-poor', '2-normal', 'review comment 1 on article 2'),
-	(5, 4, 2, '1-poor', '2-normal', '3-great', 'review comment 2 on article 2'),
-	(6, 5, 2, '2-normal', '3-great', '0-unusable', 'review comment 3 on article 2'),
+	(4, 3, 2, 'unusable', 'poor', 'normal', 'review comment 1 on article 2'),
+	(5, 4, 2, 'poor', 'normal', 'great', 'review comment 2 on article 2'),
+	(6, 5, 2, 'normal', 'great', 'unusable', 'review comment 3 on article 2'),
 
 	-- article 3
-	(7, 2, 3, '0-unusable', '1-poor', '2-normal', 'review comment 1 on article 3'),
-	(8, 3, 3, '1-poor', '2-normal', '3-great', 'review comment 2 on article 3'),
-	(9, 5, 3, '2-normal', '3-great', '0-unusable', 'review comment 3 on article 3');
+	(7, 2, 3, 'unusable', 'poor', 'normal', 'review comment 1 on article 3'),
+	(8, 3, 3, 'poor', 'normal', 'great', 'review comment 2 on article 3'),
+	(9, 5, 3, 'normal', 'great', 'unusable', 'review comment 3 on article 3');
