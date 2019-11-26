@@ -8,7 +8,11 @@ class HomeController extends ABaseController {
         $this->title = "Home page";
     }
 
-    public function show() {
+    public function process() {
+        $this->show();
+    }
+
+    private function show() {
         // get created template
         $template = parent::getView(
             $this->view,

@@ -48,7 +48,7 @@ define("LAYOUT", "Layout");
 // available websites
 
 /** Available websites */
-define("WEB_PAGES", array(
+define("WEB_PAGE_CONTROLLERS", array(
     "home"      => "HomeController",
     "articles"  => "ArticlesPublicController",
     "user"      => "UserController",
@@ -59,8 +59,12 @@ define("WEB_PAGES", array(
 );
 
 /** Default website key */
-define("WEB_DEFAULT", "home");
-/** Default website key */
-define("WEB_NOT_FOUND", "404");
+define("WEB_HOME", "home");
 /** Key of login page */
 define("WEB_LOGIN", "login");
+/** Key of register page */
+define("WEB_REGISTER", "register");
+/** Key of user (admin, reviewer, author) page */
+define("WEB_USER", "user");
+/** Default website key */
+define("WEB_NOT_FOUND", "404");

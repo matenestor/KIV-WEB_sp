@@ -8,7 +8,11 @@ class RegisterController extends ABaseController {
         $this->title = "Registration";
     }
 
-    public function show() {
+    public function process() {
+        $this->show();
+    }
+
+    private function show() {
         $this->checkRegister();
 
         // get created template

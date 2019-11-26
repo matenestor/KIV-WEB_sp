@@ -53,37 +53,4 @@ class LoginService {
         $date = $this->sess->readSession($this->date);
         return array($name, $date);
     }
-
-    /**
-     * Return which view should be displayed and its title.
-     *
-     * @return array
-     */
-    public function checkLogin() {
-        $meta = array("LoginView", "Log in");
-
-        // user want to log in or out
-        if (isset($_POST["submit_login"])) {
-            $meta = array("HomeView", "Home page");
-
-            // log in request
-            if($_POST["submit_login"] == "login") {
-                $this->login($_POST["username"]);
-            }
-            // log out request
-            else if($_POST["submit_login"] == "logout") {
-                $this->logout();
-            }
-            // error alert, just in case
-            else {
-                echo "<script>alert('Error: unknown request on server side.');</script>";
-            }
-        }
-        // user is already logged in
-        elseif ($this->isUserLoged()) {
-            $meta = array("UserView", $this->getUserInfo()[0]);
-        }
-
-        return $meta;
-    }
 }

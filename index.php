@@ -26,22 +26,16 @@ function autoload($class) {
     }
     // error
     else {
-        echo "! Unable to autoload a class ['$class']";
+        echo "<script>alert('Error: Unable to autoload a class [\'$class\'].');</script>";
     }
 }
 
 // register autoload function
 spl_autoload_register("autoload");
 
+// create global login service, which also creates session service, which starts session
+$login = new LoginService();
+
+// route requests
 $router = new RouterService();
 $router->route();
-
-//unset($_SESSION["username"]);
-//unset($_SESSION["date"]);
-
-
-//echo "post<br>";
-//print_r($_POST);
-//echo "<br>get<br>";
-//print_r($_GET);
-//echo "<br>";

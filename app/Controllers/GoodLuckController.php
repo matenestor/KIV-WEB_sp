@@ -8,7 +8,11 @@ class GoodLuckController extends ABaseController {
         $this->title = "Good luck";
     }
 
-    public function show() {
+    public function process() {
+        $this->show();
+    }
+
+    private function show() {
         // get created template
         $template = parent::getView(
             $this->view,

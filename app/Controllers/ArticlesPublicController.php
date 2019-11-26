@@ -13,10 +13,14 @@ class ArticlesPublicController extends ABaseController {
         // note: $this->data is going to be filled in show func
     }
 
-    public function show() {
+    public function process() {
         // get all articles in database
         $this->data = $this->db->getAllArticles();
 
+        $this->show();
+    }
+
+    private function show() {
         // get created template
         $template = parent::getView(
             $this->view,

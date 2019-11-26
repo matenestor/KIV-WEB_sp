@@ -8,7 +8,11 @@ class err404Controller extends ABaseController {
         $this->title = "error 404";
     }
 
-    public function show() {
+    public function process() {
+        $this->show();
+    }
+
+    private function show() {
         // get created template
         $template = parent::getView(
             $this->view,
