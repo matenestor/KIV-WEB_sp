@@ -12,18 +12,15 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email" required="required">
-        </div>
-        <div class="form-group">
             <input type="password" name="password" id="pswd1" class="form-control" placeholder="Password" required="required">
         </div>
         <div class="form-group">
             <p class="h5">Register as:</p>
-            <label class="checkbox-inline"><input type="radio" name="role" required="required"> Author</label>
-            <label class="checkbox-inline"><input type="radio" name="role" required="required"> Reviewer</label>
+            <label class="checkbox-inline"><input type="radio" name="role" value="author" required="required"> Author</label>
+            <label class="checkbox-inline"><input type="radio" name="role" value="reviewer" required="required"> Reviewer</label>
         </div>
         <div class="form-group">
-            <button type="submit" name="submit_register" class="btn btn-primary btn-lg btn-block">Register Now</button>
+            <button type="submit" name="submit_register" value="register" class="btn btn-primary btn-lg btn-block">Register Now</button>
         </div>
     </form>
     <div class="text-center">Already have an account? <a href="<?= INDEX."?page=login"?>">Log in</a></div>

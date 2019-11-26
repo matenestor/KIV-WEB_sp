@@ -43,6 +43,21 @@ class UserModel extends BaseModel {
         return $this->getUserByName($userName)[0]["role"];
     }
 
+    /**
+     * Insert new user into database.
+     *
+     * @param $insertStatement
+     * @param $values
+     */
+    public function insertUser($insertStatement, $values) {
+        parent::insertIntoTable(TABLE_USER, $insertStatement, $values);
+    }
+
+    /**
+     * Get row with given name of user.
+     * @param $name
+     * @return array
+     */
     private function getUserByName($name) {
         $where = "username='$name'";
         return parent::selectFromTable(TABLE_USER, $where);
