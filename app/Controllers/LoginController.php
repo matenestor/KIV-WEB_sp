@@ -27,8 +27,8 @@ class LoginController extends ABaseController {
                     $redirect = new UserController();
 
                     // if user is in database log in user
-                    if ($redirect->isUserInDB($_POST["username"])
-                            and $redirect->getUserPassword($_POST["username"]) == $_POST["password"]) {
+                    if ($redirect->getDBConn()->isUserInDB($_POST["username"])
+                            and $redirect->getDBConn()->getUserPassword($_POST["username"]) == $_POST["password"]) {
                         $login->login($_POST["username"]);
 
                         // redirect user to 'user' page
