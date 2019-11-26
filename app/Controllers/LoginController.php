@@ -21,27 +21,23 @@ class LoginController extends ABaseController {
         // user wants to log in or out
         if (isset($_POST["submit_login"])) {
             switch ($_POST["submit_login"]) {
-                // log in request
+                // log request
                 case "login":
-//                    $meta = array("UserView", "User");
+                    // log in user
                     $login->login($_POST["username"]);
-
+                    // redirect user to 'user' page
                     $redirect = new UserController();
                     $redirect->process();
                     exit();
 
-                    break;
-
                 // log out request
                 case "logout":
-//                    $meta = array("HomeView", "Home page");
+                    // log out user
                     $login->logout();
-
+                    // redirect user to 'home' page
                     $redirect = new HomeController();
                     $redirect->process();
                     exit();
-
-                    break;
 
                 // error alert, just in case
                 default:
