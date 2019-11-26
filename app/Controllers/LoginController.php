@@ -47,11 +47,6 @@ class LoginController extends ABaseController {
     }
 
     private function show() {
-        // get view, which should be displayed
-//        $meta = $this->login->checkLogin();
-//        $this->view = $meta[0];
-//        $this->title = $meta[1];
-
         // get created template
         $template = parent::getView(
             $this->view,
