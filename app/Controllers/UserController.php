@@ -3,16 +3,33 @@
 
 class UserController extends ABaseController {
     private $db;
-    private $login;
 
     public function __construct() {
         $this->db = new UserModel();
-        $this->login = new LoginService();
+    }
+
+    /**
+     * Return true if user is in database, else return false.
+     *
+     * @param $userName
+     * @return bool
+     */
+    public function isUserInDB($userName) {
+        $dbRow = $this->db->getUserByName($userName);
+
+        return $dbRow != null;
+    }
+
+    public function getUserPassword($userName) {
+        return $this->db->getUserByName($userName)[0]["password"];
     }
 
     public function process() {
-        $userName = $this->login->getUserInfo()[0];
-        $userRole = $this->db->getUserByName($userName);
+        global $login;
+
+        // get user role by login name
+        $userName = $login->getUserInfo()[0];
+        $userRole = $this->db->getUserByName($userName)[0]["role"];
 
         // create controller according to logged in user
         switch ($userRole) {
@@ -26,18 +43,9 @@ class UserController extends ABaseController {
                 $controller = new AuthorController();
                 break;
             default:
-                $controller = null;
+                $controller = new RegisterController();
         }
 
-        // call controller's view
-        if ($controller != null) {
-            $controller->process();
-        }
-        else {
-//            echo "<script>alert('Error: unknown controller request on server side.');</script>";
-            echo "<h1>-- User routed</h1>";
-            $controller = new AdminController();
-            $controller->process();
-        }
+        $controller->process();
     }
 }

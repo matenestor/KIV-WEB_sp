@@ -78,7 +78,7 @@ class BaseModel {
         $result = $this->executeQuery($query);
 
         if ($result == null) {
-            return [];
+            return null;
         }
 
         return $result->fetchAll();

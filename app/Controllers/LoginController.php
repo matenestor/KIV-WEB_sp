@@ -23,12 +23,23 @@ class LoginController extends ABaseController {
             switch ($_POST["submit_login"]) {
                 // log request
                 case "login":
-                    // log in user
-                    $login->login($_POST["username"]);
-                    // redirect user to 'user' page
+                    // LoginController communicates with UserController
                     $redirect = new UserController();
-                    $redirect->process();
-                    exit();
+
+                    // if user is in database log in user
+                    if ($redirect->isUserInDB($_POST["username"])
+                            and $redirect->getUserPassword($_POST["username"]) == $_POST["password"]) {
+                        $login->login($_POST["username"]);
+
+                        // redirect user to 'user' page
+                        $redirect->process();
+                        exit();
+                    }
+                    // user input wrong username and/or password
+                    else {
+                        echo "<script>alert('Wrong user name or password.');</script>";
+                        break;
+                    }
 
                 // log out request
                 case "logout":
