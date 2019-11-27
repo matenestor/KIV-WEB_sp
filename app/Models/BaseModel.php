@@ -65,13 +65,14 @@ class BaseModel {
     /**
      * Selects rows from given table with given specifics.
      *
+     * @param string $what
      * @param string $tableName
      * @param string $where
      * @param string $orderBy
      * @return array
      */
-    protected function selectFromTable(string $tableName, string $where="", string $orderBy="") {
-        $query = "SELECT * FROM ".$tableName
+    protected function selectFromTable(string $what, string $tableName, string $where="", string $orderBy="") {
+        $query = "SELECT ".$what." FROM ".$tableName
             .(($where=="") ? "" : " WHERE ".$where)
             .(($orderBy=="") ? "" : " ORDER BY ".$orderBy);
 

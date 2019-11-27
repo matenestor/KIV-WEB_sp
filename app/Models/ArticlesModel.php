@@ -9,6 +9,18 @@ class ArticlesModel extends BaseModel {
      *  @return array
      */
     public function getAllArticles():array {
-        return parent::selectFromTable(TABLE_ARTICLE);
+        $what = "*";
+        return parent::selectFromTable($what, TABLE_ARTICLE);
+    }
+
+    /**
+     * Get row(s) with articles of user.
+     *
+     * @param $user
+     * @return array
+     */
+    private function getArticlesByUser($user) {
+        $where = "username='$user'";
+        return parent::selectFromTable(TABLE_USER, $user);
     }
 }

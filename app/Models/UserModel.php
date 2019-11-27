@@ -9,7 +9,8 @@ class UserModel extends BaseModel {
      *  @return array
      */
     public function getAllUsers():array {
-        return parent::selectFromTable(TABLE_USER);
+        $what = "*";
+        return parent::selectFromTable($what, TABLE_USER);
     }
 
     /**
@@ -59,7 +60,8 @@ class UserModel extends BaseModel {
      * @return array
      */
     private function getUserByName($name) {
+        $what = "*";
         $where = "username='$name'";
-        return parent::selectFromTable(TABLE_USER, $where);
+        return parent::selectFromTable($what, TABLE_USER, $where);
     }
 }
