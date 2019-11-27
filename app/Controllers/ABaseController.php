@@ -16,7 +16,7 @@ abstract class ABaseController {
      */
     protected function getView($view, $title, $data=null) {
         // clean output buffer
-        ob_clean();
+//        ob_clean();
 
         // create template -- header + body + footer
         require APP_PATH.DIR_VIEWS.LAYOUT.EXT_VIEW;
