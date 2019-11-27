@@ -6,23 +6,22 @@
     // print articles
     foreach ($data as $article): ?>
         <div class="container">
-        <div class="mb-4">
-            <div>
-                <p class="text-primary h4"><?= $article["title"] ?></p>
+            <div class="mb-4">
+                <div>
+                    <p class="text-primary h4"><?= $article["title"] ?></p>
+                </div>
+                <div>
+                    <p><?= $article["abstract"] ?></p>
+                </div>
+                <div class="row ml-auto">
+                    <p class="col-md-4 mb-0"><span class="text-primary">Author: </span><?= $article["author"] ?></p>
+                    <p class="col-md-4 mb-0"><span class="text-primary">Date: </span><?= $article["date"] ?></p>
+                    <p class="col-md-4 mb-0"><span class="text-primary">File: </span><?= $article["file"] ?></p>
+                </div>
             </div>
-            <div>
-                <p><?= $article["abstract"] ?></p>
-            </div>
-            <div class="row ml-auto">
-                <p class="col-md-4 mb-0"><span class="text-primary">Author: </span><?= $article["author"] ?></p>
-                <p class="col-md-4 mb-0"><span class="text-primary">Date: </span><?= $article["date"] ?></p>
-                <p class="col-md-4 mb-0"><span class="text-primary">File: </span><?= $article["file"] ?></p>
-            </div>
+            <hr>
         </div>
-        <hr>
-    </div>
 
     <?php endforeach; ?>
-
 
 </div>
