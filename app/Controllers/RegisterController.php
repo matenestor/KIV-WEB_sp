@@ -30,7 +30,7 @@ class RegisterController extends ABaseController {
                     $_POST["role"] == "author" ? "author" : "reviewer",
                     "CURRENT_TIMESTAMP()",
                     "ok",
-                    $_POST["password"]
+                    password_hash($_POST["password"], PASSWORD_DEFAULT)
                 );
                 $this->dbUser->insertUser($insertStatement, $values);
                 echo "<script>alert('Successfully registered.');</script>";

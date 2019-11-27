@@ -13,22 +13,24 @@
 
 -- role = enum('admin', 'reviewer', 'author')
 -- access = enum(`ok`, `blocked`)
+--
+-- !! password for every user is "password" (in table is hash)
 
 INSERT INTO `user` 
 	(`id_user`, `username`, `first_name`, `last_name`, `role`, `last_login`, `access`, `password`) 
 VALUES 
 	-- admin
-	(1, 'admin', NULL, NULL, 'admin', CURRENT_TIMESTAMP(), 'ok', 'password'),
+	(1, 'admin', NULL, NULL, 'admin', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO'),
 
 	-- reviewer
-	(2, 'reviewer1', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', 'password'),
-	(3, 'reviewer2', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', 'password'),
-	(4, 'reviewer3', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', 'password'),
-	(5, 'reviewer4', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', 'password'),
+	(2, 'reviewer1', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO'),
+	(3, 'reviewer2', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO'),
+	(4, 'reviewer3', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO'),
+	(5, 'reviewer4', 'name', 'surname', 'reviewer', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO'),
 
 	-- publisher
-	(6, 'author1', 'name', 'surname', 'author', CURRENT_TIMESTAMP(), 'ok', 'password'),
-	(7, 'author2', 'name', 'surname', 'author', CURRENT_TIMESTAMP(), 'ok', 'password');
+	(6, 'author1', 'name', 'surname', 'author', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO'),
+	(7, 'author2', 'name', 'surname', 'author', CURRENT_TIMESTAMP(), 'ok', '$2y$10$v0aahklWK4vM6ifWCf0RGuKJnwPxSr5fk8bDQrwnqOeEXnP/kt0uO');
 
 --
 -- Dumping data for table `article`

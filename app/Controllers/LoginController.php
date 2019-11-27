@@ -26,20 +26,24 @@ class LoginController extends ABaseController {
                     // LoginController communicates with UserController
                     $redirect = new UserController();
 
-                    // if user is in database log in user
-                    if ($redirect->getDBConn()->isUserInDB($_POST["username"])
-                            and $redirect->getDBConn()->getUserPassword($_POST["username"]) == $_POST["password"]) {
-                        $login->login($_POST["username"]);
+                    // if user is in database
+                    if ($redirect->getDBConn()->isUserInDB($_POST["username"])) {
+                        $password_hash = $redirect->getDBConn()->getUserPassword($_POST["username"]);
 
-                        // redirect user to 'user' page
-                        $redirect->process();
-                        exit();
+                        // if password is correct
+                        if (password_verify($_POST["password"], $password_hash)) {
+                            // log in user
+                            $login->login($_POST["username"]);
+                            // redirect user to 'user' page
+                            $redirect->process();
+                            exit();
+                        }
                     }
+
                     // user input wrong username and/or password
-                    else {
-                        echo "<script>alert('Wrong user name or password.');</script>";
-                        break;
-                    }
+                    // note: if both username and password were correct, this scripts ends after being redirected to UserController
+                    echo "<script>alert('Wrong user name or password.');</script>";
+                    break;
 
                 // log out request
                 case "logout":
