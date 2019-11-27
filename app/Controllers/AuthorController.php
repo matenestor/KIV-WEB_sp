@@ -11,8 +11,10 @@ class AuthorController extends ABaseController {
     }
 
     public function process() {
-        // get all articles in database
-        $this->data = $this->dbArticles->getAllArticles();
+        global $login;
+
+        // get all articles from logged in user
+        $this->data = $this->dbArticles->getArticlesByUser($login->getUserInfo()[0]);
 
         $this->show();
     }

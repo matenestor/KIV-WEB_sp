@@ -2,6 +2,14 @@
 
 class ArticlesModel extends BaseModel {
 
+    /** Access to table 'user' -- foreign key */
+    private $dbUser;
+
+    public function __construct() {
+        parent::__construct();
+        $this->dbUser = new UserModel();
+    }
+
     /**
      * Returns all articles.
      *
@@ -19,8 +27,10 @@ class ArticlesModel extends BaseModel {
      * @param $user
      * @return array
      */
-    private function getArticlesByUser($user) {
-        $where = "username='$user'";
-        return parent::selectFromTable(TABLE_USER, $user);
+    public function getArticlesByUser($user) {
+        $idUser = $this->dbUser->getUserID($user);
+        $what = "*";
+        $where = "user_id_user=$idUser";
+        return parent::selectFromTable($what, TABLE_ARTICLE, $where);
     }
 }
