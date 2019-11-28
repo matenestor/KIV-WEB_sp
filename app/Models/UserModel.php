@@ -65,6 +65,38 @@ class UserModel extends BaseModel {
     }
 
     /**
+     * Get user's first name.
+     *
+     * @param $userName
+     * @return mixed
+     */
+    public function getUserFirstName($userName) {
+        return $this->getUserByName($userName)[0]["first_name"];
+    }
+
+    /**
+     * Get user's last name.
+     *
+     * @param $userName
+     * @return mixed
+     */
+    public function getUserLastName($userName) {
+        return $this->getUserByName($userName)[0]["last_name"];
+    }
+
+    /**
+     * Get user's full name.
+     *
+     * @param $userName
+     * @return mixed
+     */
+    public function getUserFullName($userName) {
+        $first_name = $this->getUserFirstName($userName);
+        $last_name = $this->getUserLastName($userName);
+        return $first_name." ".$last_name;
+    }
+
+    /**
      * Insert new user into database.
      *
      * @param $insertStatement

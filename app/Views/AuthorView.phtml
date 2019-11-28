@@ -4,13 +4,13 @@
 <div class="table-wrapper">
     <table class="table table-striped table-hover table-bordered">
         <thead>
-        <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>File</th>
-            <th>State</th>
-            <th>Rating</th>
-            <th></th>
+        <tr class="row mx-auto">
+            <th class="col-3">Title</th>
+            <th class="col-2">Date</th>
+            <th class="col-3">File</th>
+            <th class="col-1">State</th>
+            <th class="col-1">Rating</th>
+            <th class="col-2"></th>
         </tr>
         </thead>
 
@@ -19,13 +19,13 @@
         <?php foreach ($data as $key => $article): ?>
             <?php if (!is_array($article)) break; ?>
 
-        <tr>
-            <td><?= $article["title"]; ?></td>
-            <td><?= $article["date"]; ?></td>
-            <td><?= $article["file"]; ?></td>
-            <td><?= $article["status"]; ?></td>
-            <td><?= $article["rating"] != null ? $article["rating"] : "N/A"; ?></td>
-            <td>
+        <tr class="row mx-auto">
+            <td class="col-3"><?= $article["title"]; ?></td>
+            <td class="col-2"><?= $article["date"]; ?></td>
+            <td class="col-3"><?= $article["file"]; ?></td>
+            <td class="col-1"><?= $article["status"]; ?></td>
+            <td class="col-1"><?= $article["rating"] != null ? $article["rating"] : "N/A"; ?></td>
+            <td class="col-2">
                 <div class="row justify-content-center">
                     <a href="<?= INDEX."?page=new_article?edit=true?id_article=".$article["id_article"] ?>" class="col-6 btn btn-primary mr-2" role="button" aria-pressed="true">Edit</a>
 

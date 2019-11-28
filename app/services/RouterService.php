@@ -90,5 +90,8 @@ class RouterService {
         elseif (isset($_POST["submit_user"])) {
             $this->controllerKey = WEB_USER;
         }
+        elseif (isset($_POST["submit_article"])) {
+            $this->controllerKey = WEB_USER;
+        }
     }
 }
