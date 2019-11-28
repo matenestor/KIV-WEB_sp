@@ -9,8 +9,8 @@ class UserModel extends BaseModel {
      *  @return array
      */
     public function getAllUsers():array {
-        $what = "*";
-        return parent::selectFromTable($what, TABLE_USER);
+        $select = "*";
+        return parent::selectFromTable($select, TABLE_USER);
     }
 
     /**
@@ -55,6 +55,16 @@ class UserModel extends BaseModel {
     }
 
     /**
+     * Get user's last login.
+     *
+     * @param $userName
+     * @return string|null
+     */
+    public function getUserLastLogin($userName) {
+        return $this->getUserByName($userName)[0]["last_login"];
+    }
+
+    /**
      * Insert new user into database.
      *
      * @param $insertStatement
@@ -65,13 +75,24 @@ class UserModel extends BaseModel {
     }
 
     /**
+     * Update user's last login.
+     *
+     * @param $column
+     * @param $values
+     * @param $where
+     */
+    public function updateLastLogin($column, $values, $where) {
+        parent::updateTable(TABLE_USER, $column, $values, $where);
+    }
+
+    /**
      * Get row with given name of user.
      * @param $name
      * @return array
      */
     private function getUserByName($name) {
-        $what = "*";
+        $select = "*";
         $where = "username='$name'";
-        return parent::selectFromTable($what, TABLE_USER, $where);
+        return parent::selectFromTable($select, TABLE_USER, $where);
     }
 }

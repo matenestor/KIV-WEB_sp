@@ -2,10 +2,20 @@
 
 
 class UserController extends ABaseController {
-    private $db;
+    private $dbUser;
 
     public function __construct() {
-        $this->db = new UserModel();
+        $this->dbUser = new UserModel();
+    }
+
+    public function updateLastLogin() {
+        global $login;
+
+        $column = "last_login";
+        $values = sprintf("'%s'", $login->getUserInfo()[1]);
+        $where = "user.id_user = ".$this->dbUser->getUserID($login->getUserInfo()[0]);
+
+        $this->dbUser->updateLastLogin($column, $values, $where);
     }
 
     public function process() {
@@ -13,7 +23,7 @@ class UserController extends ABaseController {
 
         // get user role by login name
         $userName = $login->getUserInfo()[0];
-        $userRole = $this->db->getUserRole($userName);
+        $userRole = $this->dbUser->getUserRole($userName);
 
         // create controller according to logged in user
         switch ($userRole) {
@@ -34,6 +44,6 @@ class UserController extends ABaseController {
     }
 
     public function getDBConn() {
-        return $this->db;
+        return $this->dbUser;
     }
 }

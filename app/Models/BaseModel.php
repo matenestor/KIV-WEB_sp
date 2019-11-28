@@ -65,14 +65,14 @@ class BaseModel {
     /**
      * Selects rows from given table with given specifics.
      *
-     * @param string $what
+     * @param string $select
      * @param string $tableName
      * @param string $where
      * @param string $orderBy
      * @return array
      */
-    protected function selectFromTable(string $what, string $tableName, string $where="", string $orderBy="") {
-        $query = "SELECT ".$what." FROM ".$tableName
+    protected function selectFromTable(string $select, string $tableName, string $where="", string $orderBy="") {
+        $query = "SELECT ".$select." FROM ".$tableName
             .(($where=="") ? "" : " WHERE ".$where)
             .(($orderBy=="") ? "" : " ORDER BY ".$orderBy);
 
@@ -98,5 +98,21 @@ class BaseModel {
         $result = $this->executeQuery($q);
 
         return $result == null;
+    }
+
+    /**
+     * Updates given values in given table.
+     *
+     * @param string $tableName
+     * @param string $column
+     * @param $value
+     * @param string $where
+     * @return bool
+     */
+    protected function updateTable(string $tableName, string $column, $value, string $where) {
+       $q = "UPDATE $tableName SET $column = $value WHERE $where";
+       $result = $this->executeQuery($q);
+
+       return $result == null;
     }
 }

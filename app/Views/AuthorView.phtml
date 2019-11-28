@@ -16,7 +16,8 @@
 
         <tbody>
 
-        <?php foreach ($data as $article): ?>
+        <?php foreach ($data as $key => $article): ?>
+            <?php if (!is_array($article)) break; ?>
 
         <tr>
             <td><?= $article["title"]; ?></td>
@@ -25,7 +26,7 @@
             <td><?= $article["status"]; ?></td>
             <td><?= $article["rating"] != null ? $article["rating"] : "N/A"; ?></td>
             <td>
-                <div class="row justify-content-md-center">
+                <div class="row justify-content-center">
                     <a href="<?= INDEX."?page=new_article?edit=true?id_article=".$article["id_article"] ?>" class="col-6 btn btn-primary mr-2" role="button" aria-pressed="true">Edit</a>
 
                     <form action="<?= INDEX ?>" method="post">
@@ -40,7 +41,8 @@
         </tbody>
     </table>
 
-    <div>
-        <a href="<?= INDEX."?page=new_article"?>" class="btn btn-primary btn-lg mb-5" role="button" aria-pressed="true">New article</a>
+    <div class="row justify-content-between mb-5 mx-auto">
+        <a href="<?= INDEX."?page=new_article"?>" class="col-2 btn btn-primary btn-lg" role="button" aria-pressed="true">New article</a>
+        <p class="col-4 h5">Last login: <span class="h6"><?= $data["last_login"] ?></span></p>
     </div>
 </div>

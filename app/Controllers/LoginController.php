@@ -47,6 +47,9 @@ class LoginController extends ABaseController {
 
                 // log out request
                 case "logout":
+                    // update last login with session value
+                    $update = new UserController();
+                    $update->updateLastLogin();
                     // log out user
                     $login->logout();
                     // redirect user to 'home' page

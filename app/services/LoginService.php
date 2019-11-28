@@ -23,7 +23,7 @@ class LoginService {
      */
     public function login($userName) {
         $this->sess->addSession($this->name, $userName);
-        $this->sess->addSession($this->date, date("d. m. Y, G:m:s"));
+        $this->sess->addSession($this->date, date("Y-m-d G:i:s"));
     }
 
     /**

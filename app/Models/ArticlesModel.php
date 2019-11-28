@@ -17,8 +17,8 @@ class ArticlesModel extends BaseModel {
      *  @return array
      */
     public function getAllArticles():array {
-        $what = "*";
-        return parent::selectFromTable($what, TABLE_ARTICLE);
+        $select = "*";
+        return parent::selectFromTable($select, TABLE_ARTICLE);
     }
 
     /**
@@ -29,8 +29,8 @@ class ArticlesModel extends BaseModel {
      */
     public function getArticlesByUser($user) {
         $idUser = $this->dbUser->getUserID($user);
-        $what = "*";
+        $select = "*";
         $where = "user_id_user=$idUser";
-        return parent::selectFromTable($what, TABLE_ARTICLE, $where);
+        return parent::selectFromTable($select, TABLE_ARTICLE, $where);
     }
 }

@@ -2,19 +2,24 @@
 
 
 class AuthorController extends ABaseController {
+    private $dbUser;
     private $dbArticles;
 
     public function __construct() {
         $this->view = "AuthorView";
         $this->title = "Author";
+        $this->dbUser = new UserModel();
         $this->dbArticles = new ArticlesModel();
     }
 
     public function process() {
         global $login;
+        $userName = $login->getUserInfo()[0];
 
         // get all articles from logged in user
-        $this->data = $this->dbArticles->getArticlesByUser($login->getUserInfo()[0]);
+        $this->data = $this->dbArticles->getArticlesByUser($userName);
+        // get last login of user
+        $this->data["last_login"] = $this->dbUser->getUserLastLogin($userName);
 
         $this->show();
     }
