@@ -56,7 +56,7 @@ global $login;
                     // show user name if user is logged in
                     if ($login->isUserLoged()) {
                         echo "<li class='nav-item'><a class='nav-link h5' href='".INDEX."?page=user'>";
-                        echo $login->getUserInfo()[0];
+                        echo $login->getLoginUserName();
                         echo "</a></li>";
                     }
                     ?>

@@ -44,13 +44,20 @@ class LoginService {
     }
 
     /**
-     * Return info about user.
+     * Return logged user's name.
      *
-     * @return array
+     * @return string
      */
-    public function getUserInfo() {
-        $name = $this->sess->readSession($this->name);
-        $date = $this->sess->readSession($this->date);
-        return array($name, $date);
+    public function getLoginUserName() {
+        return $this->sess->readSession($this->name);
+    }
+
+    /**
+     * Return date of logged user.
+     *
+     * @return string
+     */
+    public function getLoginUserDate() {
+        return $this->sess->readSession($this->date);
     }
 }

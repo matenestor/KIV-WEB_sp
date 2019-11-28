@@ -12,8 +12,8 @@ class UserController extends ABaseController {
         global $login;
 
         $column = "last_login";
-        $values = sprintf("'%s'", $login->getUserInfo()[1]);
-        $where = "user.id_user = ".$this->dbUser->getUserID($login->getUserInfo()[0]);
+        $values = sprintf("'%s'", $login->getLoginUserDate());
+        $where = "user.id_user = ".$this->dbUser->getUserID($login->getLoginUserName());
 
         $this->dbUser->updateLastLogin($column, $values, $where);
     }
@@ -22,7 +22,7 @@ class UserController extends ABaseController {
         global $login;
 
         // get user role by login name
-        $userName = $login->getUserInfo()[0];
+        $userName = $login->getLoginUserName();
         $userRole = $this->dbUser->getUserRole($userName);
 
         // create controller according to logged in user

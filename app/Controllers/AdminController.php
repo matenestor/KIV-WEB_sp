@@ -15,6 +15,7 @@ class AdminController extends ABaseController {
     }
 
     public function process() {
+        var_dump($_SESSION);
         $this->show();
     }
 
