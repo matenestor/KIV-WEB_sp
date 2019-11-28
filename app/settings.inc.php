@@ -55,8 +55,9 @@ define("WEB_PAGE_CONTROLLERS", array(
     "login"     => "LoginController",
     "register"  => "RegisterController",
     "404"       => "err404Controller",
-    "goodluck"  => "GoodLuckController")
-);
+    "goodluck"  => "GoodLuckController",
+    "new_article" => "NewArticleController"
+));
 
 /** Default website key */
 define("WEB_HOME", "home");
