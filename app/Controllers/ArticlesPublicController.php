@@ -3,17 +3,17 @@
 
 class ArticlesPublicController extends ABaseController {
 
-    private $db;
+    private $dbArticles;
 
     public function __construct() {
         $this->view = "ArticlesPublicView";
         $this->title = "Articles";
-        $this->db = new ArticlesModel();
+        $this->dbArticles = new ArticlesModel();
     }
 
     public function process() {
         // get all articles in database
-        $this->data = $this->db->getAllArticles();
+        $this->data = $this->dbArticles->getAllArticles();
 
         $this->show();
     }
