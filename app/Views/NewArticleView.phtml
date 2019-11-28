@@ -1,0 +1,48 @@
+<p class="h2">New article</p>
+<hr>
+
+<div class="w-75 ml-auto mr-auto">
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group row">
+            <label for="title" class="col-1 col-form-label"><span class="h5">Title:</span></label>
+            <div class="col-5">
+                <input name="title" type="text" class="form-control" id="title" required="required">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="file" class="col-1 col-form-label h5"><span class="h5">File:</span></label>
+            <div class="col-5">
+                <input id="filename" name="file" type="file" oninput="checkExt(), checkSize()" accept="application/pdf">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="abstract" class="h5">Abstract:</label>
+            <textarea id="abstract" name="abstract" class="form-control" rows="5" wrap="soft" required="required"></textarea>
+        </div>
+        <div class="form-group row mx-auto">
+            <button name="submit_article" value="new" type="submit" class="btn btn-primary btn-block col-3">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    function checkExt() {
+        let input = document.getElementById("filename");
+
+        if (input.files[0].type !== "application/pdf") {
+            document.getElementById("filename").value = "";
+            alert("Only PDF files supported!");
+        }
+    }
+
+    function checkSize() {
+        let input = document.getElementById("filename");
+
+        if (input.files[0].size > 2097152) {
+            document.getElementById("filename").value = "";
+            alert("Max. size of PDF file for upload is 2 MB.")
+        }
+    }
+</script>

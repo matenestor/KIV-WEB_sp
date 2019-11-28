@@ -46,6 +46,15 @@ class ArticlesModel extends BaseModel {
     }
 
     /**
+     * Deletes article from database.
+     *
+     * @param $where
+     */
+    public function deleteArticle($where) {
+        parent::deleteFromTable(TABLE_ARTICLE, $where);
+    }
+
+    /**
      * Inserts article into database.
      *
      * @param $insertStatement

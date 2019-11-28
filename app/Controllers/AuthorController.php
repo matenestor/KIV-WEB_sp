@@ -60,6 +60,13 @@ class AuthorController extends ABaseController {
                         echo "<script>alert('Article already exists.');</script>";
                     }
                     break;
+
+                default:
+                    if (ctype_digit($_POST["submit_article"])) {
+                        $where = "id_article=".$_POST["submit_article"];
+                        $this->dbArticles->deleteArticle($where);
+                    }
+
             }
         }
     }

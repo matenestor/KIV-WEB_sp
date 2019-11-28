@@ -115,4 +115,18 @@ class BaseModel {
 
        return $result == null;
     }
+
+    /**
+     * Deletes given row from given table.
+     *
+     * @param string $tableName
+     * @param string $where
+     * @return bool
+     */
+    protected function deleteFromTable(string $tableName, string $where) {
+        $q = "DELETE FROM $tableName WHERE $where";
+        $result = $this->executeQuery($q);
+
+        return $result == null;
+    }
 }
