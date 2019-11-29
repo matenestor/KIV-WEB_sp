@@ -27,10 +27,10 @@
             <td class="col-1"><?= $article["rating"] != null ? $article["rating"] : "N/A"; ?></td>
             <td class="col-2">
                 <div class="row justify-content-center">
-                    <a href="<?= INDEX."?page=new_article?edit=true?id_article=".$article["id_article"] ?>" class="col-6 btn btn-primary mr-2" role="button" aria-pressed="true">Edit</a>
+                    <a href="<?= INDEX."?page=new_article&id_article=".$article["id_article"] ?>" class="col-6 btn btn-primary mr-2" role="button" aria-pressed="true">Edit</a>
 
                     <form action="<?= INDEX ?>" method="post">
-                        <button type="submit" name="submit_article" value="<?= $article["id_article"] ?>" class="col btn btn-danger">Delete</button>
+                        <button type="submit" name="delete_article" value="<?= $article["id_article"] ?>" class="col btn btn-danger">Delete</button>
                     </form>
                 </div>
             </td>

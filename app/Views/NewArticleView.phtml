@@ -6,7 +6,8 @@
         <div class="form-group row">
             <label for="title" class="col-1 col-form-label"><span class="h5">Title:</span></label>
             <div class="col-5">
-                <input name="title" type="text" class="form-control" id="title" required="required">
+<!--                <input name="title" --><?//= isset($data["title"]) ? sprintf("value=\"%s\"", $data["title"]) : "" ?><!-- type="text" class="form-control" id="title" required="required">-->
+                <input name="title" <?= isset($data["title"]) ? sprintf("value=\"%s\"", $data["title"]) : "" ?> type="text" class="form-control" id="title" required="required">
             </div>
         </div>
         <div class="form-group row">
@@ -18,10 +19,10 @@
         <hr>
         <div class="form-group">
             <label for="abstract" class="h5">Abstract:</label>
-            <textarea id="abstract" name="abstract" class="form-control" rows="5" wrap="soft" required="required"></textarea>
+            <textarea id="abstract" name="abstract" class="form-control" rows="5" wrap="soft" required="required"><?= isset($data["abstract"]) ? $data["abstract"] : "" ?></textarea>
         </div>
         <div class="form-group row mx-auto">
-            <button name="submit_article" value="new" type="submit" class="btn btn-primary btn-block col-3">Submit</button>
+            <button name="submit_article" value="<?= isset($_GET["id_article"]) ? $_GET["id_article"] : "new" ?>" type="submit" class="btn btn-primary btn-block col-3">Submit</button>
         </div>
     </form>
 </div>

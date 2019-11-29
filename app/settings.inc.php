@@ -69,3 +69,5 @@ define("WEB_REGISTER", "register");
 define("WEB_USER", "user");
 /** Default website key */
 define("WEB_NOT_FOUND", "404");
+/** New article page */
+define("WEB_NEW_ARTICLE", "new_article");

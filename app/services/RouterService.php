@@ -46,6 +46,10 @@ class RouterService {
                 if ($_GET['page'] == WEB_USER) {
                     $this->controllerKey = WEB_LOGIN;
                 }
+                // not logged user is not supposed to be on new article page
+                elseif ($_GET['page'] == WEB_NEW_ARTICLE) {
+                    $this->controllerKey = WEB_HOME;
+                }
                 // else route where user wants to
                 else {
                     $this->controllerKey = $_GET['page'];
@@ -90,8 +94,8 @@ class RouterService {
         elseif (isset($_POST["submit_user"])) {
             $this->controllerKey = WEB_USER;
         }
-        elseif (isset($_POST["submit_article"])) {
-            $this->controllerKey = WEB_USER;
+        elseif (isset($_POST["submit_article"]) or isset($_POST["delete_article"])) {
+            $this->controllerKey = WEB_NEW_ARTICLE;
         }
     }
 }

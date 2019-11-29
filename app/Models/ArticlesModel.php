@@ -22,6 +22,36 @@ class ArticlesModel extends BaseModel {
     }
 
     /**
+     * Get title of article.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getArticleTitle($id) {
+        return $this->getArticleByID($id)[0]["title"];
+    }
+
+    /**
+     * Get file of article.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getArticleFile($id) {
+        return $this->getArticleByID($id)[0]["file"];
+    }
+
+    /**
+     * Get abstract of article.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getArticleAbstract($id) {
+        return $this->getArticleByID($id)[0]["abstract"];
+    }
+
+    /**
      * Returns all articles.
      *
      *  Get all articles in DB
@@ -46,6 +76,17 @@ class ArticlesModel extends BaseModel {
     }
 
     /**
+     * Get article by its ID.
+     * @param $id
+     * @return array
+     */
+    public function getArticleByID($id) {
+        $select = "*";
+        $where = "id_article='$id'";
+        return parent::selectFromTable($select, TABLE_ARTICLE, $where);
+    }
+
+    /**
      * Deletes article from database.
      *
      * @param $where
@@ -66,7 +107,19 @@ class ArticlesModel extends BaseModel {
     }
 
     /**
+     * Updates article column.
+     *
+     * @param string $column
+     * @param $value
+     * @param string $where
+     */
+    public function updateArticle(string $column, $value, string $where) {
+        parent::updateTable(TABLE_ARTICLE, $column, "'$value'", $where);
+    }
+
+    /**
      * Get row with given title of article.
+     *
      * @param $title
      * @return array
      */
