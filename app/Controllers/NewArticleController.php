@@ -43,68 +43,117 @@ class NewArticleController extends ABaseController {
         global $login;
         $userName = $login->getLoginUserName();
 
-        // request for posting new article
-        if (isset($_POST["submit_article"]) and $_POST["submit_article"] == "new") {
-            // if there is no article with same title
-            if (!$this->dbArticles->isArticleInDB($_POST["title"])) {
-                // if uploaded file is saved, insert into database
-                if ($this->fileControl->receiveFile()) {
-                    $insertStatement = "user_id_user, title, author, date, file, abstract";
-                    $values = sprintf("'%s', '%s', '%s', %s, '%s', '%s'",
-                        $this->dbUser->getUserID($userName),
-                        $_POST["title"],
-                        $this->dbUser->getUserFullName($userName),
-                        "CURRENT_TIMESTAMP()",
-                        basename($_FILES["file"]["name"]),
-                        $_POST["abstract"]
-                    );
-                    $this->dbArticles->insertArticle($insertStatement, $values);
-                }
-                // else notify user about failure
-                else {
-                    echo "<script>alert('Unable to upload file.');</script>";
-                }
+        // if request for new or edit an article came
+        if (isset($_POST["submit_article"])) {
+            // request for posting new article
+            if ($_POST["submit_article"] == "new") {
+                $this->manageNew($userName);
             }
-            else {
-                echo "<script>alert('Article already exists.');</script>";
-            }
-        }
-        // request for editing existing article
-        elseif (isset($_POST["submit_article"]) and ctype_digit($_POST["submit_article"])) {
-            $where = TABLE_ARTICLE.".id_article=".$_POST["submit_article"];
-
-            // title have been edited
-            if ($_POST["title"] != $this->dbArticles->getArticleTitle($_POST["submit_article"])) {
-                $this->dbArticles->updateArticle("title", $_POST["title"], $where);
-            }
-
-            // abstract have been edited
-            if ($_POST["abstract"] != $this->dbArticles->getArticleAbstract($_POST["submit_article"])) {
-                $this->dbArticles->updateArticle("abstract", $_POST["abstract"], $where);
-            }
-
-            // file have been edited
-            if (isset($_POST["file"]) and $_POST["file"] != $this->dbArticles->getArticleFile($_POST["submit_article"])) {
-                // if uploaded file is saved, update database
-                if ($this->fileControl->receiveFile()) {
-                    $this->dbArticles->updateArticle("file", $_POST["file"], $where);
-                }
-                // else notify user about failure
-                else {
-                    echo "<script>alert('Unable to upload file.');</script>";
-                }
+            // request for editing existing article
+            elseif (ctype_digit($_POST["submit_article"])) {
+                $this->manageEdit();
             }
         }
         // request for article delete
         elseif (isset($_POST["delete_article"])) {
-            $where = "id_article=".$_POST["delete_article"];
-            $this->data = $this->dbArticles->deleteArticle($where);
+            $this->manageDelete();
         }
 
         // redirect to author's articles and exit
         $redirect = new AuthorController();
         $redirect->process();
         exit();
+    }
+
+    private function manageNew($userName) {
+        // if there is no article with same title
+        if (!$this->dbArticles->isArticleInDB($_POST["title"])) {
+            // get non-duplicate filename
+            $fileName = $this->fileControl->checkFileDuplicate();
+
+            // if uploaded file is saved, insert into database
+            if ($this->fileControl->receiveFile($fileName)) {
+                // prepare statements
+                $insertStatement = "user_id_user, title, author, date, file, abstract";
+                // fill values
+                $values = sprintf("'%s', '%s', '%s', %s, '%s', '%s'",
+                    $this->dbUser->getUserID($userName),
+                    $_POST["title"],
+                    $this->dbUser->getUserFullName($userName),
+                    "CURRENT_TIMESTAMP()",
+                    $fileName,
+                    $_POST["abstract"]
+                );
+                // insert everything into database
+                $this->dbArticles->insertArticle($insertStatement, $values);
+            }
+            // else notify user about failure
+            else {
+                echo "<script>alert('Unable to upload file.');</script>";
+            }
+        }
+        else {
+            echo "<script>alert('Article already exists.');</script>";
+        }
+    }
+
+    private function manageEdit() {
+        $where = TABLE_ARTICLE.".id_article=".$_POST["submit_article"];
+
+        // title have been edited
+        if ($_POST["title"] != $this->dbArticles->getArticleTitle($_POST["submit_article"])) {
+            $this->dbArticles->updateArticle("title", $_POST["title"], $where);
+        }
+
+        // abstract have been edited
+        if ($_POST["abstract"] != $this->dbArticles->getArticleAbstract($_POST["submit_article"])) {
+            $this->dbArticles->updateArticle("abstract", $_POST["abstract"], $where);
+        }
+
+        // file have been edited
+        if (isset($_FILES["file"]) and $_FILES["file"]["name"] != "") {
+            // get non-duplicate file name
+            $fileName = $this->dbArticles->getArticleFile($_POST["submit_article"]);
+
+            // edited file name is same
+            if ($_FILES["file"]["name"] == $fileName) {
+                if (!$this->fileControl->receiveFile($fileName)) {
+                    // notify user about failure
+                    echo "<script>alert('Unable to upload file.');</script>";
+                }
+            }
+            // edited file name is different
+            else {
+                // use old name for deleting old file from server
+                if (file_exists(FILES.$fileName)) {
+                    unlink(FILES.$fileName);
+                }
+
+                // get new non-duplicate name of edited file
+                $fileName = $this->fileControl->checkFileDuplicate();
+                // if uploaded file is saved, update database
+                if ($this->fileControl->receiveFile($fileName)) {
+                    // insert the name to the database
+                    $this->dbArticles->updateArticle("file", $fileName, $where);
+                }
+                // else notify user about failure
+                else {
+                    echo "<script>alert('Unable to upload file.');</script>";
+                }
+            }
+        }
+    }
+
+    private function manageDelete() {
+        $fileName = FILES.$this->dbArticles->getArticleFile($_POST["delete_article"]);
+
+        // delete file from server
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        // delete file from database
+        $where = "id_article=".$_POST["delete_article"];
+        $this->data = $this->dbArticles->deleteArticle($where);
     }
 
     private function show() {

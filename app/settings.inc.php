@@ -26,6 +26,10 @@ define("TABLE_REVIEW", "review");
 define("ROOT_PATH", "KIV-WEB_sp/");
 /** Index path */
 define("INDEX", ROOT_PATH."index.php");
+/** File to download directory */
+define("FILES", "files/");
+/** Files to download path */
+define("FILES_PATH", ROOT_PATH.FILES);
 /** Base path for requiring/including */
 define("APP_PATH", "app/");
 /** Directory of controllers */
