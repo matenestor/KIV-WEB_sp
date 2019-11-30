@@ -1,7 +1,7 @@
 <?php
 
 
-class FileController {
+class FileService {
 
     /**
      * Checks if uploaded file has duplicate name as some in database.

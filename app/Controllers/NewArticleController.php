@@ -4,14 +4,14 @@
 class NewArticleController extends ABaseController {
     private $dbUser;
     private $dbArticles;
-    private $fileControl;
+    private $fileService;
 
     public function __construct() {
         $this->view = "NewArticleView";
         $this->title = "New article";
         $this->dbUser = new UserModel();
         $this->dbArticles = new ArticlesModel();
-        $this->fileControl = new FileController();
+        $this->fileService = new FileService();
     }
 
     public function process() {
@@ -69,10 +69,10 @@ class NewArticleController extends ABaseController {
         // if there is no article with same title
         if (!$this->dbArticles->isArticleInDB($_POST["title"])) {
             // get non-duplicate filename
-            $fileName = $this->fileControl->checkFileDuplicate();
+            $fileName = $this->fileService->checkFileDuplicate();
 
             // if uploaded file is saved, insert into database
-            if ($this->fileControl->receiveFile($fileName)) {
+            if ($this->fileService->receiveFile($fileName)) {
                 // prepare statements
                 $insertStatement = "user_id_user, title, author, date, file, abstract";
                 // fill values
@@ -117,7 +117,7 @@ class NewArticleController extends ABaseController {
 
             // edited file name is same
             if ($_FILES["file"]["name"] == $fileName) {
-                if (!$this->fileControl->receiveFile($fileName)) {
+                if (!$this->fileService->receiveFile($fileName)) {
                     // notify user about failure
                     echo "<script>alert('Unable to upload file.');</script>";
                 }
@@ -130,9 +130,9 @@ class NewArticleController extends ABaseController {
                 }
 
                 // get new non-duplicate name of edited file
-                $fileName = $this->fileControl->checkFileDuplicate();
+                $fileName = $this->fileService->checkFileDuplicate();
                 // if uploaded file is saved, update database
-                if ($this->fileControl->receiveFile($fileName)) {
+                if ($this->fileService->receiveFile($fileName)) {
                     // insert the name to the database
                     $this->dbArticles->updateArticle("file", $fileName, $where);
                 }
