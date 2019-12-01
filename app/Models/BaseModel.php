@@ -69,12 +69,71 @@ class BaseModel {
      * @param string $tableName
      * @param string $where
      * @param string $orderBy
+     * @param string $sort
      * @return array
      */
-    protected function selectFromTable(string $select, string $tableName, string $where="", string $orderBy="") {
+    protected function selectFromTable(string $select, string $tableName, string $where="", string $orderBy="", string $sort="") {
         $query = "SELECT ".$select." FROM ".$tableName
             .(($where=="") ? "" : " WHERE ".$where)
-            .(($orderBy=="") ? "" : " ORDER BY ".$orderBy);
+            .(($orderBy=="") ? "" : " ORDER BY ".$orderBy)
+            .(($sort=="") ? "" : " ".$sort);
+
+        $result = $this->executeQuery($query);
+
+        if ($result == null) {
+            return null;
+        }
+
+        return $result->fetchAll();
+    }
+
+    /**
+     * Executes JOIN on 2 given tables with given keys.
+     *
+     * @param string $select
+     * @param string $tableName1
+     * @param string $tableName2
+     * @param string $tableKey1
+     * @param string $tableKey2
+     * @param string $groupBy
+     * @return array|null
+     */
+    protected function selectJoin(string $select, string $tableName1, string $tableName2,
+                                  string $tableKey1, string $tableKey2, string $groupBy="") {
+        $query = "SELECT ".$select
+                ." FROM ".$tableName1." JOIN ".$tableName2
+                ." on ".$tableKey1." = ".$tableKey2
+                .(($groupBy=="") ? "" : " GROUP BY ".$groupBy);
+
+        $result = $this->executeQuery($query);
+
+        if ($result == null) {
+            return null;
+        }
+
+        return $result->fetchAll();
+    }
+
+    /**
+     * Executes JOIN on 2 given tables with given keys.
+     *
+     * @param string $select
+     * @param string $tableName1
+     * @param string $tableName2
+     * @param string $tableName3
+     * @param string $tableKey1
+     * @param string $tableKey2
+     * @param string $tableKey3
+     * @param string $tableKey4
+     * @param string $where
+     * @return array|null
+     */
+    protected function selectJoinLeftJoin(string $select, string $tableName1, string $tableName2, string $tableName3,
+                                  string $tableKey1, string $tableKey2, string $tableKey3, string $tableKey4, string $where="") {
+        $query = "SELECT ".$select
+            ." FROM ".$tableName1
+            ." JOIN ".$tableName2." on ".$tableKey1." = ".$tableKey2
+            ." LEFT JOIN ".$tableName3." on ".$tableKey3." = ".$tableKey4;
 
         $result = $this->executeQuery($query);
 

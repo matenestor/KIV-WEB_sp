@@ -87,6 +87,24 @@ class ArticlesModel extends BaseModel {
     }
 
     /**
+     * Get ID of newest article.
+     *
+     * @return mixed
+     */
+    public function getNewestArticleID() {
+        $select = "*";
+        $where = "";
+        $orderBy = "id_article";
+        $sort = "DESC";
+
+        // get all articles in database with DESCending order
+        $result = parent::selectFromTable($select, TABLE_ARTICLE, $where, $orderBy, $sort);
+
+        // return ID of first article, which is newest
+        return $result[0]["id_article"];
+    }
+
+    /**
      * Deletes article from database.
      *
      * @param $where

@@ -4,6 +4,7 @@
 class NewArticleController extends ABaseController {
     private $dbUser;
     private $dbArticles;
+    private $dbReviews;
     private $fileService;
 
     public function __construct() {
@@ -11,6 +12,7 @@ class NewArticleController extends ABaseController {
         $this->title = "New article";
         $this->dbUser = new UserModel();
         $this->dbArticles = new ArticlesModel();
+        $this->dbReviews = new ReviewsModel();
         $this->fileService = new FileService();
     }
 
@@ -86,6 +88,12 @@ class NewArticleController extends ABaseController {
                 );
                 // insert everything into database
                 $this->dbArticles->insertArticle($insertStatement, $values);
+                // get inserted article ID
+                $id = $this->dbArticles->getNewestArticleID();
+                // insert review row assigned to this article 3 times
+                for ($i = 0; $i < 3; $i++) {
+                    $this->dbReviews->insertReview($id);
+                }
             }
             // else notify user about failure
             else {
@@ -98,22 +106,26 @@ class NewArticleController extends ABaseController {
     }
 
     private function manageEdit() {
-        $where = TABLE_ARTICLE.".id_article=".$_POST["submit_article"];
+        $edited = false;
+        $id = $_POST["submit_article"];
+        $where = TABLE_ARTICLE.".id_article=".$id;
 
         // title have been edited
-        if ($_POST["title"] != $this->dbArticles->getArticleTitle($_POST["submit_article"])) {
+        if ($_POST["title"] != $this->dbArticles->getArticleTitle($id)) {
             $this->dbArticles->updateArticle("title", $_POST["title"], $where);
+            $edited = true;
         }
 
         // abstract have been edited
-        if ($_POST["abstract"] != $this->dbArticles->getArticleAbstract($_POST["submit_article"])) {
+        if ($_POST["abstract"] != $this->dbArticles->getArticleAbstract($id)) {
             $this->dbArticles->updateArticle("abstract", $_POST["abstract"], $where);
+            $edited = true;
         }
 
         // file have been edited
         if (isset($_FILES["file"]) and $_FILES["file"]["name"] != "") {
             // get non-duplicate file name
-            $fileName = $this->dbArticles->getArticleFile($_POST["submit_article"]);
+            $fileName = $this->dbArticles->getArticleFile($id);
 
             // edited file name is same
             if ($_FILES["file"]["name"] == $fileName) {
@@ -124,17 +136,17 @@ class NewArticleController extends ABaseController {
             }
             // edited file name is different
             else {
-                // use old name for deleting old file from server
-                if (file_exists(FILES.$fileName)) {
-                    unlink(FILES.$fileName);
-                }
-
                 // get new non-duplicate name of edited file
-                $fileName = $this->fileService->checkFileDuplicate();
+                $newFileName = $this->fileService->checkFileDuplicate();
                 // if uploaded file is saved, update database
-                if ($this->fileService->receiveFile($fileName)) {
+                if ($this->fileService->receiveFile($newFileName)) {
+                    // use old name for deleting old file from server
+                    if (file_exists(FILES.$fileName)) {
+                        unlink(FILES.$fileName);
+                    }
                     // insert the name to the database
-                    $this->dbArticles->updateArticle("file", $fileName, $where);
+                    $this->dbArticles->updateArticle("file", $newFileName, $where);
+                    $edited = true;
                 }
                 // else notify user about failure
                 else {
@@ -142,18 +154,27 @@ class NewArticleController extends ABaseController {
                 }
             }
         }
+
+        // if article was edited, renew its reviews
+        if ($edited) {
+            // null reviews fo edited article
+            $this->dbReviews->nullReview($id);
+        }
     }
 
     private function manageDelete() {
-        $fileName = FILES.$this->dbArticles->getArticleFile($_POST["delete_article"]);
+        $id = $_POST["delete_article"];
+        $fileName = FILES.$this->dbArticles->getArticleFile($id);
 
         // delete file from server
         if (file_exists($fileName)) {
             unlink($fileName);
         }
         // delete file from database
-        $where = "id_article=".$_POST["delete_article"];
+        $where = "id_article=".$id;
         $this->data = $this->dbArticles->deleteArticle($where);
+        // delete assigned reviews
+        $this->dbReviews->deleteReview($id);
     }
 
     private function show() {

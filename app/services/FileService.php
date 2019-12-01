@@ -13,7 +13,8 @@ class FileService {
         // get base file name
         $fileName = basename($_FILES["file"]["name"]);
         // manage encoding
-        $fileName = iconv("UTF-8", "WINDOWS-1250", $fileName);
+        // note: when this was uncommented, filenames were broken after
+//        $fileName = iconv("UTF-8", "WINDOWS-1250", $fileName);
 
         // append '-duplicate' until there is not file with same name
         while (file_exists(FILES.$fileName)) {
