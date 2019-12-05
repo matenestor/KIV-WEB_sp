@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `article` (
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `file` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('reviewing','published','refused') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'reviewing',
-  `rating` tinyint(4) DEFAULT NULL,
   `abstract` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

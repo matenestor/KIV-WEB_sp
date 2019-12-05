@@ -8,8 +8,7 @@
             <th class="col-1 col-sm-6">Title</th>
             <th class="col-2">Date</th>
             <th class="col-1">State</th>
-            <th class="col-1">Rating</th>
-            <th class="col-2"></th>
+            <th class="col-3"></th>
         </tr>
         </thead>
 
@@ -22,8 +21,7 @@
             <td class="col-1 col-sm-6"><a href="<?= ROOT_PATH.FILES.$article["file"]; ?>" target="_blank"><?= $article["title"]; ?></a></td>
             <td class="col-2"><?= $article["date"]; ?></td>
             <td class="col-1"><?= $article["status"]; ?></td>
-            <td class="col-1"><?= $article["rating"] != null ? $article["rating"] : "N/A"; ?></td>
-            <td class="col-2">
+            <td class="col-3">
                 <div class="row justify-content-center">
                     <a href="<?= INDEX."?page=new_article&id_article=".$article["id_article"] ?>" class="col-6 btn btn-primary mr-2" role="button" aria-pressed="true">Edit</a>
 
