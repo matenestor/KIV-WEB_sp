@@ -35,7 +35,7 @@ class LoginController extends ABaseController {
                 // log request
                 case "login":
                     // error message to display, when user is blocked or input wrong credentials
-                    $err_msg = "no error";
+                    $err_msg = "";
 
                     // if user is in database
                     if ($userContr->getDBConn()->isUserInDB($_POST["username"])) {
@@ -51,15 +51,19 @@ class LoginController extends ABaseController {
                                 // set redirect to 'user' page
                                 $redirect = "Location: index.php?page=user";
                             }
+                            // user input wrong password
+                            else {
+                                $err_msg = "Wrong password";
+                            }
                         }
                         // user is blocked
                         else {
                             $err_msg = "You are blocked on this website.";
                         }
                     }
-                    // user input wrong username and/or password
+                    // user input wrong username or is not registered
                     else {
-                        $err_msg = "Wrong user name or password";
+                        $err_msg = "Unknown user.";
                     }
                     
                     // note: if both username and password were correct, this scripts ends after being redirected to UserController
