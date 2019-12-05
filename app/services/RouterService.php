@@ -85,15 +85,23 @@ class RouterService {
     }
 
     private function routePOST() {
+        // login post
         if (isset($_POST["submit_login"])) {
             $this->controllerKey = WEB_LOGIN;
         }
+        // register post
         elseif (isset($_POST["submit_register"])) {
             $this->controllerKey = WEB_REGISTER;
         }
-        elseif (isset($_POST["submit_user"])) {
+        // admin articles modul posts
+        elseif (isset($_POST["submit_user"])
+                or isset($_POST["assign_review_to"])
+                or isset($_POST["assign_review_on"])
+                or isset($_POST["publish_article"])
+                or isset($_POST["refuse_article"])) {
             $this->controllerKey = WEB_USER;
         }
+        // user new article posts
         elseif (isset($_POST["submit_article"]) or isset($_POST["delete_article"])) {
             $this->controllerKey = WEB_NEW_ARTICLE;
         }

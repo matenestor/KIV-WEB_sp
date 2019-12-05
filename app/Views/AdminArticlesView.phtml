@@ -6,7 +6,7 @@
 </div>
 
 <div class="table-wrapper">
-    <table class="table table-striped table-bordered">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>Title</th>
@@ -23,11 +23,12 @@
 
         <tbody>
 
-        <?php foreach ($data as $contribution): ?>
+        <?php foreach ($data as $key => $contribution): ?>
             <?php if (!is_array($contribution)) break; ?>
             <?php if (!isset($contribution["reviews"])) continue; ?>
 
             <tr>
+                <!-- begin columns -->
                 <td rowspan="3"><a href="<?= ROOT_PATH.FILES.$contribution["attributes"]["file"]; ?>" target="_blank"><?= $contribution["attributes"]["title"]; ?></a></td>
                 <td rowspan="3"><?= $contribution["attributes"]["author"]; ?></td>
                 <td rowspan="3"><?= $contribution["attributes"]["date"]; ?></td>
@@ -35,24 +36,27 @@
                 <!-- Reviewer 1 -->
                 <?php if ($contribution["reviews"]["rev1"]["username"] == null): ?>
                     <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Dropdown
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Link 1</a>
-                                <a class="dropdown-item" href="#">Link 2</a>
-                                <a class="dropdown-item" href="#">Link 3</a>
-                            </div>
-                        </div>
+                        <select id="<?= 'select_rev1'.$key ?>" class="custom-select btn">
+                            <?php foreach ($data["all_revs"] as $reviewer): ?>
+                                <?php if (!in_array($reviewer["username"], array(
+                                    $contribution["reviews"]["rev1"]["username"],
+                                    $contribution["reviews"]["rev2"]["username"],
+                                    $contribution["reviews"]["rev3"]["username"]
+                                ))): ?>
+                                    <option value="<?= $reviewer["id_user"]; ?>"><?= $reviewer["username"]; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
                     </td>
 
                     <td colspan="3">
                         <form action="<?= INDEX ?>" method="post">
-                            <button type="submit" name="assign_review" value="1" class="btn btn-outline-primary btn-block">Assign</button>
+                            <input type="hidden" name="assign_review_on" value="<?= $contribution["attributes"]["id_article"] ?>" />
+                            <button id="<?= 'submit_rev1'.$key ?>" type="submit" name="assign_review_to" onclick="setReviewerValue(1, '<?= $key ?>')" class="btn btn-outline-primary btn-block">Assign</button>
                         </form>
                     </td>
 
+                <!-- end columns -->
                 <?php else: ?>
                     <td><span title="<?= $contribution["reviews"]["rev1"]["comment"] ?>"><?= $contribution["reviews"]["rev1"]["username"] ?></span></td>
                     <td><?= $contribution["reviews"]["rev1"]["originality"] ?></td>
@@ -64,21 +68,10 @@
                 <td rowspan="3">
                     <div>
                         <form action="<?= INDEX ?>" method="post">
-                            <button type="submit" name="accept_article" value="<?= $contribution["attributes"]["id_article"] ?>" class="btn btn-success">Accept</button>
+                            <button type="submit" name="publish_article" value="<?= $contribution["attributes"]["id_article"] ?>" class="btn btn-success">Publish</button>
                             <button type="submit" name="refuse_article" value="<?= $contribution["attributes"]["id_article"] ?>" class="btn btn-danger">Refuse</button>
                         </form>
-                        <span><?php
-                            switch ($contribution["attributes"]["status"]) {
-                                case "accepted":
-                                    echo "accepted";
-                                    break;
-                                case "refused":
-                                    echo "refused";
-                                    break;
-                                default:
-                                    echo "";
-                            }
-                            ?></span>
+                        <span><?php echo $contribution["attributes"]["status"] != "reviewing" ? $contribution["attributes"]["status"] : ""; ?></span>
                     </div>
                 </td>
             </tr>
@@ -87,24 +80,27 @@
                 <!-- Reviewer 2 -->
                 <?php if ($contribution["reviews"]["rev2"]["username"] == null): ?>
                     <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Dropdown
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Link 1</a>
-                                <a class="dropdown-item" href="#">Link 2</a>
-                                <a class="dropdown-item" href="#">Link 3</a>
-                            </div>
-                        </div>
+                        <select id="<?= 'select_rev2'.$key ?>" class="custom-select btn">
+                            <?php foreach ($data["all_revs"] as $reviewer): ?>
+                                <?php if (!in_array($reviewer["username"], array(
+                                    $contribution["reviews"]["rev1"]["username"],
+                                    $contribution["reviews"]["rev2"]["username"],
+                                    $contribution["reviews"]["rev3"]["username"]
+                                ))): ?>
+                                    <option value="<?= $reviewer["id_user"]; ?>"><?= $reviewer["username"]; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
                     </td>
 
                     <td colspan="3">
                         <form action="<?= INDEX ?>" method="post">
-                            <button type="submit" name="assign_review" value="2" class="btn btn-outline-primary btn-block">Assign</button>
+                            <input type="hidden" name="assign_review_on" value="<?= $contribution["attributes"]["id_article"] ?>" />
+                            <button id="<?= 'submit_rev2'.$key ?>" type="submit" name="assign_review_to" onclick="setReviewerValue(2, '<?= $key ?>')" class="btn btn-outline-primary btn-block">Assign</button>
                         </form>
                     </td>
 
+                <!-- end columns -->
                 <?php else: ?>
                     <td><span title="<?= $contribution["reviews"]["rev2"]["comment"] ?>"><?= $contribution["reviews"]["rev2"]["username"] ?></span></td>
                     <td><?= $contribution["reviews"]["rev2"]["originality"] ?></td>
@@ -118,24 +114,27 @@
                 <!-- Reviewer 3 -->
                 <?php if ($contribution["reviews"]["rev3"]["username"] == null): ?>
                     <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Dropdown
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Link 1</a>
-                                <a class="dropdown-item" href="#">Link 2</a>
-                                <a class="dropdown-item" href="#">Link 3</a>
-                            </div>
-                        </div>
+                        <select id="<?= 'select_rev3'.$key ?>" class="custom-select btn">
+                            <?php foreach ($data["all_revs"] as $reviewer): ?>
+                                <?php if (!in_array($reviewer["username"], array(
+                                    $contribution["reviews"]["rev1"]["username"],
+                                    $contribution["reviews"]["rev2"]["username"],
+                                    $contribution["reviews"]["rev3"]["username"]
+                                ))): ?>
+                                    <option value="<?= $reviewer["id_user"]; ?>"><?= $reviewer["username"]; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
                     </td>
 
                     <td colspan="3">
                         <form action="<?= INDEX ?>" method="post">
-                            <button type="submit" name="assign_review" value="3" class="btn btn-outline-primary btn-block">Assign</button>
+                            <input type="hidden" name="assign_review_on" value="<?= $contribution["attributes"]["id_article"] ?>" />
+                            <button id="<?= 'submit_rev3'.$key ?>" type="submit" name="assign_review_to" onclick="setReviewerValue(3, '<?= $key ?>')" class="btn btn-outline-primary btn-block">Assign</button>
                         </form>
                     </td>
 
+                <!-- end columns -->
                 <?php else: ?>
                     <td><span title="<?= $contribution["reviews"]["rev3"]["comment"] ?>"><?= $contribution["reviews"]["rev3"]["username"] ?></span></td>
                     <td><?= $contribution["reviews"]["rev3"]["originality"] ?></td>
@@ -155,3 +154,9 @@
         <p class="col-4 h5">Last login: <span class="h6"><?= $data["last_login"] ?></span></p>
     </div>
 </div>
+
+<script>
+    function setReviewerValue(id_rev, key) {
+        document.getElementById("submit_rev" + id_rev + key).value = document.getElementById("select_rev" + id_rev + key).value;
+    }
+</script>

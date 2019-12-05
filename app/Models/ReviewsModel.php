@@ -50,6 +50,35 @@ class ReviewsModel extends BaseModel {
     }
 
     /**
+     * Updates review column.
+     *
+     * result query example:
+     *
+     * UPDATE review
+     * SET user_id_user <column> = '1' <value_rev>
+     * WHERE review.id_review = (
+     *   SELECT review.id_review
+     *   FROM review
+     *   WHERE review.user_id_user IS NULL AND review.article_id_article = '1' <value_art>
+     *   GROUP BY review.article_id_article
+     * )
+     *
+     * @param string $column
+     * @param string $value_rev
+     * @param string $value_art
+     */
+    public function updateReview(string $column, string $value_rev, string $value_art) {
+        $select = "review.id_review";
+        $where_inner = "review.user_id_user IS NULL AND review.article_id_article = ".$value_art;
+        $groupBy = "review.article_id_article";
+
+        $id_review = $this->selectFromTable($select, TABLE_REVIEW, $where_inner, "", "", $groupBy)[0]["id_review"];
+        $where = "review.id_review = ".$id_review;
+
+        parent::updateTable(TABLE_REVIEW, $column, $value_rev, $where);
+    }
+
+    /**
      * Delete review row connected with article by given name.
      *
      * @param $id

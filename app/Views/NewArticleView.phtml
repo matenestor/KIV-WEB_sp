@@ -6,7 +6,6 @@
         <div class="form-group row">
             <label for="title" class="col-1 col-form-label"><span class="h5">Title:</span></label>
             <div class="col-5">
-<!--                <input name="title" --><?//= isset($data["title"]) ? sprintf("value=\"%s\"", $data["title"]) : "" ?><!-- type="text" class="form-control" id="title" required="required">-->
                 <input name="title" <?= isset($data["title"]) ? sprintf("value=\"%s\"", $data["title"]) : "" ?> type="text" class="form-control" id="title" required="required">
             </div>
         </div>

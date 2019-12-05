@@ -16,16 +16,20 @@ class AdminController extends ABaseController {
 
     public function process() {
         // manage review of article
-        $this->manageArticleReview();
+        $this->manageSubmits();
 
         $this->composeData();
         $this->show();
     }
 
-    private function manageArticleReview() {
+    private function manageSubmits() {
         // check if article have been uploaded, edited or deleted
-        if (isset($_POST["submit_article"]) or isset($_POST["delete_article"])) {
-            $this->checkSubmits();
+        if (isset($_POST["publish_article"]) or isset($_POST["refuse_article"])) {
+            $this->manageArticle();
+        }
+        // check if there is assigment for reviewer
+        elseif (isset($_POST["assign_review_to"]) or isset($_POST["assign_review_on"])) {
+            $this->manageAssign();
         }
         // check if there is request for article editing, so the article can be filled
         else {
@@ -33,8 +37,29 @@ class AdminController extends ABaseController {
         }
     }
 
-    private function checkSubmits() {
+    private function manageArticle() {
+        // article will be published
+        if (isset($_POST["publish_article"])) {
+            $column = "status";
+            $value = "published";
+            $where = "article.id_article = ".$_POST["publish_article"];
+            $this->dbArticles->updateArticle($column, $value, $where);
+        }
+        // article will be refused
+        elseif (isset($_POST["refuse_article"])) {
+            $column = "status";
+            $value = "refused";
+            $where = "article.id_article = ".$_POST["refuse_article"];
+            $this->dbArticles->updateArticle($column, $value, $where);
+        }
+    }
 
+    private function manageAssign() {
+        // assign review to reviewer
+        $column = "user_id_user";
+        $assign_to = $_POST["assign_review_to"];
+        $assign_on = $_POST["assign_review_on"];
+        $this->dbReview->updateReview($column, $assign_to, $assign_on);
     }
 
     private function checkPageSwitch() {
@@ -59,6 +84,8 @@ class AdminController extends ABaseController {
         $attributes = $this->dbReview->getArticleAttributes();
         // get reviews in database
         $reviews = $this->dbReview->getReviewsOfArticle();
+        // get all reviewers in database
+        $all_reviewers = $this->dbUser->getAllReviewers();
 
         // prepare attribute values
         foreach ($attributes as $idx => $atr) {
@@ -71,6 +98,9 @@ class AdminController extends ABaseController {
             $this->data["article".$j]["reviews"]["rev2"] = $reviews[$i+1];
             $this->data["article".$j]["reviews"]["rev3"] = $reviews[$i+2];
         }
+
+        // insert all reviewers to data array
+        $this->data["all_revs"] = $all_reviewers;
 
         // get last login of user
         $this->data["last_login"] = $this->dbUser->getUserLastLogin($userName);

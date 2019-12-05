@@ -14,6 +14,18 @@ class UserModel extends BaseModel {
     }
 
     /**
+     * Returns all users with role of reviewer.
+     *
+     *  Get all users in DB
+     *  @return array
+     */
+    public function getAllReviewers():array {
+        $select = "`id_user`, `username`, `role`";
+        $where = "role = 'reviewer'";
+        return parent::selectFromTable($select, TABLE_USER, $where);
+    }
+
+    /**
      * Return true if user is in database, else return false.
      *
      * @param $userName

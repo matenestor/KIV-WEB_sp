@@ -70,13 +70,15 @@ class BaseModel {
      * @param string $where
      * @param string $orderBy
      * @param string $sort
+     * @param string $groupBy
      * @return array
      */
-    protected function selectFromTable(string $select, string $tableName, string $where="", string $orderBy="", string $sort="") {
+    protected function selectFromTable(string $select, string $tableName, string $where="", string $orderBy="", string $sort="", string $groupBy="") {
         $query = "SELECT ".$select." FROM ".$tableName
-            .(($where=="") ? "" : " WHERE ".$where)
+            .(($where=="")   ? "" : " WHERE ".$where)
             .(($orderBy=="") ? "" : " ORDER BY ".$orderBy)
-            .(($sort=="") ? "" : " ".$sort);
+            .(($sort=="")    ? "" : " ".$sort)
+            .(($groupBy=="") ? "" : " GROUP BY ".$groupBy);
 
         $result = $this->executeQuery($query);
 
