@@ -26,7 +26,10 @@ class NewArticleController extends ABaseController {
     private function manageArticle() {
         // check if article have been uploaded, edited or deleted
         if (isset($_POST["submit_article"]) or isset($_POST["delete_article"])) {
+            // process article submit or delete
             $this->checkSubmits();
+            // and go back to user author page
+            header("Location: index.php?page=user");
         }
         // check if there is request for article editing, so the article can be filled
         else {
@@ -60,11 +63,6 @@ class NewArticleController extends ABaseController {
         elseif (isset($_POST["delete_article"])) {
             $this->manageDelete();
         }
-
-        // redirect to author's articles and exit
-        $redirect = new AuthorController();
-        $redirect->process();
-        exit();
     }
 
     private function manageNew($userName) {

@@ -1,16 +1,12 @@
 <?php
 
 class NewReviewController extends ABaseController {
-    private $dbArticles;
     private $dbReview;
-    private $dbUser;
 
     public function __construct() {
         $this->view = "NewReviewView";
         $this->title = "New review";
-        $this->dbArticles = new ArticlesModel();
         $this->dbReview = new ReviewsModel();
-        $this->dbUser = new UserModel();
     }
 
     public function process() {
