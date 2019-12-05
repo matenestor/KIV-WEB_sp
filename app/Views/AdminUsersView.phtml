@@ -1,1 +1,60 @@
-<p class="h1">Admin USERS view</p>
+<p class="h2">Users</p>
+<hr>
+
+<div class="row justify-content-between mb-5 mx-auto">
+    <a href="<?= INDEX."?page=user&sub_page=admin_articles"?>" class="col-2 btn btn-primary btn-lg" role="button" aria-pressed="true">Articles</a>
+</div>
+
+<div class="table-wrapper">
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Last name</th>
+
+            <th>Role</th>
+            <th>Last login</th>
+            <th>Access</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <?php foreach ($data as $user): ?>
+            <?php if (!is_array($user)) break; ?>
+
+            <tr>
+                <td><?= $user["username"]; ?></td>
+                <td><?= $user["first_name"]; ?></td>
+                <td><?= $user["last_name"]; ?></td>
+
+                <td><?= $user["role"]; ?></td>
+                <td><?= $user["last_login"]; ?></td>
+                <td><?= $user["access"]; ?></td>
+
+                <td>
+                    <div>
+                        <form action="<?= INDEX ?>" method="post">
+                            <?php if ($user["access"] == "ok"): ?>
+                                <button type="submit" name="block_user" value="<?= $user["id_user"] ?>" class="btn btn-warning">Block</button>
+                            <?php else: ?>
+                                <button type="submit" name="allow_user" value="<?= $user["id_user"] ?>" class="btn btn-success">Allow</button>
+                            <?php endif; ?>
+
+                            <button type="submit" name="delete_user" value="<?= $user["id_user"] ?>" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+        </tbody>
+    </table>
+
+    <div class="row justify-content-between mb-5 mx-auto">
+        <a href="<?= INDEX."?page=user&sub_page=admin_articles"?>" class="col-2 btn btn-primary btn-lg" role="button" aria-pressed="true">Articles</a>
+        <p class="col-4 h5">Last login: <span class="h6"><?= $data["last_login"] ?></span></p>
+    </div>
+</div>

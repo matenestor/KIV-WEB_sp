@@ -3,20 +3,19 @@
 class UserModel extends BaseModel {
 
     /**
-     * Returns all users.
+     * Returns all users, except for admin.
      *
-     *  Get all users in DB
      *  @return array
      */
     public function getAllUsers():array {
         $select = "*";
-        return parent::selectFromTable($select, TABLE_USER);
+        $where = TABLE_USER.".role != 'admin'";
+        return parent::selectFromTable($select, TABLE_USER, $where);
     }
 
     /**
      * Returns all users with role of reviewer.
      *
-     *  Get all users in DB
      *  @return array
      */
     public function getAllReviewers():array {
@@ -138,5 +137,27 @@ class UserModel extends BaseModel {
         $select = "*";
         $where = "username='$name'";
         return parent::selectFromTable($select, TABLE_USER, $where);
+    }
+
+    /**
+     * Updates column of user.
+     *
+     * @param $id
+     * @param $column
+     * @param $value
+     */
+    public function updateUser($id, $column, $value) {
+        $where = TABLE_USER.".id_user = ".$id;
+        parent::updateTable(TABLE_USER, $column, "'$value'", $where);
+    }
+
+    /**
+     * Deletes user from table.
+     *
+     * @param $id
+     */
+    public function deleteUser($id) {
+        $where = TABLE_USER.".id_user = ".$id;
+        parent::deleteFromTable(TABLE_USER, $where);
     }
 }

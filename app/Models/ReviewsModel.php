@@ -14,7 +14,7 @@ class ReviewsModel extends BaseModel {
         $tableName2 = TABLE_REVIEW;
         $tableKey1 = TABLE_ARTICLE.".id_article";
         $tableKey2 = TABLE_REVIEW.".article_id_article";
-        $groupBy = "article.id_article";
+        $groupBy = TABLE_ARTICLE.".id_article";
 
         return parent::selectJoin($select, $tableName1, $tableName2, $tableKey1, $tableKey2, $groupBy);
     }
@@ -68,12 +68,12 @@ class ReviewsModel extends BaseModel {
      * @param string $value_art
      */
     public function updateReview(string $column, string $value_rev, string $value_art) {
-        $select = "review.id_review";
-        $where_inner = "review.user_id_user IS NULL AND review.article_id_article = ".$value_art;
-        $groupBy = "review.article_id_article";
+        $select = TABLE_REVIEW.".id_review";
+        $where_inner = TABLE_REVIEW.".user_id_user IS NULL AND ".TABLE_REVIEW.".article_id_article = ".$value_art;
+        $groupBy = TABLE_REVIEW.".article_id_article";
 
         $id_review = $this->selectFromTable($select, TABLE_REVIEW, $where_inner, "", "", $groupBy)[0]["id_review"];
-        $where = "review.id_review = ".$id_review;
+        $where = TABLE_REVIEW.".id_review = ".$id_review;
 
         parent::updateTable(TABLE_REVIEW, $column, $value_rev, $where);
     }

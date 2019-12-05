@@ -18,7 +18,10 @@ class AdminController extends ABaseController {
         // manage review of article
         $this->manageSubmits();
 
+        // get data according to page
         $this->composeData();
+
+        // show view
         $this->show();
     }
 
@@ -30,6 +33,13 @@ class AdminController extends ABaseController {
         // check if there is assigment for reviewer
         elseif (isset($_POST["assign_review_to"]) or isset($_POST["assign_review_on"])) {
             $this->manageAssign();
+        }
+        // check for users manipulation
+        elseif (isset($_POST["block_user"])
+                or isset($_POST["allow_user"])
+                or isset($_POST["delete_user"])) {
+            $this->view = "AdminUsersView";
+            $this->manageUsers();
         }
         // check if there is request for article editing, so the article can be filled
         else {
@@ -62,9 +72,26 @@ class AdminController extends ABaseController {
         $this->dbReview->updateReview($column, $assign_to, $assign_on);
     }
 
+    private function manageUsers() {
+        // user will be blocked
+        if (isset($_POST["block_user"])) {
+            $column = "access";
+            $this->dbUser->updateUser($_POST["block_user"], $column, "blocked");
+        }
+        // user will be allowed
+        elseif (isset($_POST["allow_user"])) {
+            $column = "access";
+            $this->dbUser->updateUser($_POST["allow_user"], $column, "ok");
+        }
+        // user will be deleted
+        elseif (isset($_POST["delete_user"])) {
+            $this->dbUser->deleteUser($_POST["delete_user"]);
+        }
+    }
+
     private function checkPageSwitch() {
-        if (isset($_GET["page"])) {
-            switch ($_GET["page"]) {
+        if (isset($_GET["sub_page"])) {
+            switch ($_GET["sub_page"]) {
                 case "admin_articles":
                     $this->view = "AdminArticlesView";
                     break;
@@ -77,6 +104,15 @@ class AdminController extends ABaseController {
     }
 
     private function composeData() {
+        if ($this->view == "AdminArticlesView") {
+            $this->composeDataArticles();
+        }
+        elseif ($this->view == "AdminUsersView") {
+            $this->composeDataUsers();
+        }
+    }
+
+    private function composeDataArticles() {
         global $login;
         $userName = $login->getLoginUserName();
 
@@ -101,6 +137,17 @@ class AdminController extends ABaseController {
 
         // insert all reviewers to data array
         $this->data["all_revs"] = $all_reviewers;
+
+        // get last login of user
+        $this->data["last_login"] = $this->dbUser->getUserLastLogin($userName);
+    }
+
+    private function composeDataUsers() {
+        global $login;
+        $userName = $login->getLoginUserName();
+
+        // get all users in database
+        $this->data = $this->dbUser->getAllUsers();
 
         // get last login of user
         $this->data["last_login"] = $this->dbUser->getUserLastLogin($userName);

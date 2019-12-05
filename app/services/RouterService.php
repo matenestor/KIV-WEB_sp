@@ -93,12 +93,15 @@ class RouterService {
         elseif (isset($_POST["submit_register"])) {
             $this->controllerKey = WEB_REGISTER;
         }
-        // admin articles modul posts
+        // admin articles and users modul posts
         elseif (isset($_POST["submit_user"])
                 or isset($_POST["assign_review_to"])
                 or isset($_POST["assign_review_on"])
                 or isset($_POST["publish_article"])
-                or isset($_POST["refuse_article"])) {
+                or isset($_POST["refuse_article"])
+                or isset($_POST["block_user"])
+                or isset($_POST["allow_user"])
+                or isset($_POST["delete_user"])) {
             $this->controllerKey = WEB_USER;
         }
         // user new article posts

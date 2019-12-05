@@ -117,7 +117,14 @@ class BaseModel {
     }
 
     /**
-     * Executes JOIN on 2 given tables with given keys.
+     * Executes JOIN on 3 given tables with given keys.
+     *
+     * example of query:
+     *
+     * SELECT user.username, review.originality, review.format, review.language, review.comment
+     * FROM article
+     * JOIN review on article.id_article = review.article_id_article
+     * LEFT JOIN user on user.id_user = review.user_id_user
      *
      * @param string $select
      * @param string $tableName1
