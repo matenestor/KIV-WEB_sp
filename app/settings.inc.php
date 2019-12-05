@@ -60,7 +60,8 @@ define("WEB_PAGE_CONTROLLERS", array(
     "register"  => "RegisterController",
     "404"       => "err404Controller",
     "goodluck"  => "GoodLuckController",
-    "new_article" => "NewArticleController"
+    "new_article" => "NewArticleController",
+    "new_review" => "NewReviewController"
 ));
 
 /** Default website key */
@@ -75,3 +76,5 @@ define("WEB_USER", "user");
 define("WEB_NOT_FOUND", "404");
 /** New article page */
 define("WEB_NEW_ARTICLE", "new_article");
+/** New review page */
+define("WEB_NEW_REVIEW", "new_review");

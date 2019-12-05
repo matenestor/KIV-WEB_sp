@@ -69,7 +69,7 @@ class AdminController extends ABaseController {
         $column = "user_id_user";
         $assign_to = $_POST["assign_review_to"];
         $assign_on = $_POST["assign_review_on"];
-        $this->dbReview->updateReview($column, $assign_to, $assign_on);
+        $this->dbReview->updateReviewByIdArticle($column, $assign_to, $assign_on);
     }
 
     private function manageUsers() {

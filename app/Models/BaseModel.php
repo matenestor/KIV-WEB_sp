@@ -98,14 +98,16 @@ class BaseModel {
      * @param string $tableKey1
      * @param string $tableKey2
      * @param string $groupBy
+     * @param string $where
      * @return array|null
      */
     protected function selectJoin(string $select, string $tableName1, string $tableName2,
-                                  string $tableKey1, string $tableKey2, string $groupBy="") {
+                                  string $tableKey1, string $tableKey2, string $groupBy="", string $where="") {
         $query = "SELECT ".$select
                 ." FROM ".$tableName1." JOIN ".$tableName2
                 ." on ".$tableKey1." = ".$tableKey2
-                .(($groupBy=="") ? "" : " GROUP BY ".$groupBy);
+                .(($groupBy=="") ? "" : " GROUP BY ".$groupBy)
+                .(($where=="") ? "" : " WHERE ".$where);
 
         $result = $this->executeQuery($query);
 

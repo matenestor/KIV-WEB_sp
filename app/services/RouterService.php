@@ -104,9 +104,13 @@ class RouterService {
                 or isset($_POST["delete_user"])) {
             $this->controllerKey = WEB_USER;
         }
-        // user new article posts
+        // author new article posts
         elseif (isset($_POST["submit_article"]) or isset($_POST["delete_article"])) {
             $this->controllerKey = WEB_NEW_ARTICLE;
+        }
+        // reviewer new review posts
+        elseif (isset($_POST["submit_review"])) {
+            $this->controllerKey = WEB_NEW_REVIEW;
         }
     }
 }

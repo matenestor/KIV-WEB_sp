@@ -1,0 +1,52 @@
+<p class="h2">New review</p>
+<hr>
+
+<div class="w-75 ml-auto mr-auto">
+    <form method="post">
+        <div class="form-group row mb-3">
+            <label for="originality" class="col-2 mr-3 h5"><span class="h5">Originality:</span></label>
+            <div class="col-5">
+                <select id="originality" name="originality" class="custom-select btn">
+                    <option value="unusable" <?php if($data["originality"] == "unusable") echo "selected"; ?>>Unusable</option>
+                    <option value="poor"     <?php if($data["originality"] == "poor")     echo "selected"; ?>>Poor</option>
+                    <option value="normal"   <?php if($data["originality"] == "normal")   echo "selected"; ?>>Normal</option>
+                    <option value="great"    <?php if($data["originality"] == "great")    echo "selected"; ?>>Great</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label for="format" class="col-2 mr-3 h5"><span class="h5">Format:</span></label>
+            <div class="col-5">
+                <select id="format" name="format" class="custom-select btn">
+                    <option value="unusable" <?php if($data["format"] == "unusable") echo "selected"; ?>>Unusable</option>
+                    <option value="poor"     <?php if($data["format"] == "poor")     echo "selected"; ?>>Poor</option>
+                    <option value="normal"   <?php if($data["format"] == "normal")   echo "selected"; ?>>Normal</option>
+                    <option value="great"    <?php if($data["format"] == "great")    echo "selected"; ?>>Great</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label for="language" class="col-2 mr-3 h5"><span class="h5">Language:</span></label>
+            <div class="col-5">
+                <select id="language" name="language" class="custom-select btn">
+                    <option value="unusable" <?php if($data["language"] == "unusable") echo "selected"; ?>>Unusable</option>
+                    <option value="poor"     <?php if($data["language"] == "poor")     echo "selected"; ?>>Poor</option>
+                    <option value="normal"   <?php if($data["language"] == "normal")   echo "selected"; ?>>Normal</option>
+                    <option value="great"    <?php if($data["language"] == "great")    echo "selected"; ?>>Great</option>
+                </select>
+            </div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <label for="comment" class="h5">Comment:</label>
+            <textarea id="comment" name="comment" class="form-control" rows="5" wrap="soft"><?= isset($data["comment"]) ? $data["comment"] : "" ?></textarea>
+        </div>
+
+        <div class="form-group row mx-auto">
+            <button name="submit_review" type="submit" class="btn btn-primary btn-block col-3">Submit</button>
+        </div>
+    </form>
+</div>

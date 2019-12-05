@@ -2,24 +2,31 @@
 
 
 class ReviewerController extends ABaseController {
-    private $dbArticles;
     private $dbReview;
+    private $dbUser;
 
     public function __construct() {
         $this->view = "ReviewerView";
         $this->title = "Reviewer";
-        $this->dbArticles = new ArticlesModel();
         $this->dbReview = new ReviewsModel();
+        $this->dbUser = new UserModel();
     }
 
     public function process() {
+        global $login;
+        $userName = $login->getLoginUserName();
+
+        // get Id of user
+        $userId = $this->dbUser->getUserID($userName);
+        // get review information
+        $this->data = $this->dbReview->getAllReviewsOfUser($userId);
+        // get last login of user
+        $this->data["last_login"] = $this->dbUser->getUserLastLogin($userName);
+
         $this->show();
     }
 
     private function show() {
-        // get all articles in database
-        $this->data = $this->dbArticles->getAllArticles();
-
         // get created template
         $template = parent::getView(
             $this->view,
