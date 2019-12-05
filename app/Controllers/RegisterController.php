@@ -12,12 +12,22 @@ class RegisterController extends ABaseController {
     }
 
     public function process() {
-        $this->registerManage();
+        $redirect = $this->registerManage();
 
-        $this->show();
+        // if user was registered, redirect user
+        if ($redirect != "") {
+            header($redirect);
+        }
+        // no action -- show registration page
+        else {
+            $this->show();
+        }
     }
 
     private function registerManage() {
+        global $login;
+        $redirect = "";
+
         if (isset($_POST["submit_register"])
                 and $_POST["submit_register"] == "register") {
             // username is not in database -- register user
@@ -32,7 +42,13 @@ class RegisterController extends ABaseController {
                     "ok",
                     password_hash($_POST["password"], PASSWORD_DEFAULT)
                 );
+                // insert user to database
                 $this->dbUser->insertUser($insertStatement, $values);
+                // login user right after registration
+                $login->login($_POST["username"]);
+                // set redirect to user page
+                $redirect = "Location: index.php?page=user";
+
                 echo "<script>alert('Successfully registered.');</script>";
             }
             // username is already in database
@@ -40,6 +56,8 @@ class RegisterController extends ABaseController {
                 echo "<script>alert('Username already exists.');</script>";
             }
         }
+
+        return $redirect;
     }
 
     private function show() {
