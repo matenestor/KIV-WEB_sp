@@ -25,24 +25,37 @@ class LoginController extends ABaseController {
                 case "login":
                     // LoginController communicates with UserController
                     $redirect = new UserController();
+                    // error message to display, when user is blocked or input wrong credentials
+                    $err_msg = "no error";
 
                     // if user is in database
                     if ($redirect->getDBConn()->isUserInDB($_POST["username"])) {
-                        $password_hash = $redirect->getDBConn()->getUserPassword($_POST["username"]);
+                        // if user is allowed to login
+                        if ($redirect->getDBConn()->getUserAccess($_POST["username"]) == "ok") {
+                            // get true user's password
+                            $password_hash = $redirect->getDBConn()->getUserPassword($_POST["username"]);
 
-                        // if password is correct
-                        if (password_verify($_POST["password"], $password_hash)) {
-                            // log in user
-                            $login->login($_POST["username"]);
-                            // redirect user to 'user' page
-                            $redirect->process();
-                            exit();
+                            // if password is correct
+                            if (password_verify($_POST["password"], $password_hash)) {
+                                // log in user
+                                $login->login($_POST["username"]);
+                                // redirect user to 'user' page
+                                $redirect->process();
+                                exit();
+                            }
+                        }
+                        // user is blocked
+                        else {
+                            $err_msg = "You are blocked on this website.";
                         }
                     }
-
                     // user input wrong username and/or password
+                    else {
+                        $err_msg = "Wrong user name or password";
+                    }
+                    
                     // note: if both username and password were correct, this scripts ends after being redirected to UserController
-                    echo "<script>alert('Wrong user name or password.');</script>";
+                    echo "<script>alert('".$err_msg."');</script>";
                     break;
 
                 // log out request

@@ -108,6 +108,16 @@ class UserModel extends BaseModel {
     }
 
     /**
+     * Get user's access.
+     *
+     * @param $userName
+     * @return string|null
+     */
+    public function getUserAccess($userName) {
+        return $this->getUserByName($userName)[0]["access"];
+    }
+
+    /**
      * Insert new user into database.
      *
      * @param $insertStatement
