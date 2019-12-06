@@ -67,7 +67,7 @@ class NewArticleController extends ABaseController {
 
     private function manageNew($userName) {
         // if there is no article with same title
-        if (!$this->dbArticles->isArticleInDB($_POST["title"])) {
+        if (!$this->dbArticles->isArticleInDB(htmlspecialchars($_POST["title"]))) {
             // get non-duplicate filename
             $fileName = $this->fileService->checkFileDuplicate();
 
@@ -78,11 +78,11 @@ class NewArticleController extends ABaseController {
                 // fill values
                 $values = sprintf("'%s', '%s', '%s', %s, '%s', '%s'",
                     $this->dbUser->getUserID($userName),
-                    $_POST["title"],
+                    htmlspecialchars($_POST["title"]),
                     $this->dbUser->getUserFullName($userName),
                     "CURRENT_TIMESTAMP()",
-                    $fileName,
-                    $_POST["abstract"]
+                    htmlspecialchars($fileName),
+                    htmlspecialchars($_POST["abstract"])
                 );
                 // insert everything into database
                 $this->dbArticles->insertArticle($insertStatement, $values);
@@ -110,13 +110,13 @@ class NewArticleController extends ABaseController {
 
         // title have been edited
         if ($_POST["title"] != $this->dbArticles->getArticleTitle($id)) {
-            $this->dbArticles->updateArticle("title", $_POST["title"], $where);
+            $this->dbArticles->updateArticle("title", htmlspecialchars($_POST["title"]), $where);
             $edited = true;
         }
 
         // abstract have been edited
         if ($_POST["abstract"] != $this->dbArticles->getArticleAbstract($id)) {
-            $this->dbArticles->updateArticle("abstract", $_POST["abstract"], $where);
+            $this->dbArticles->updateArticle("abstract", htmlspecialchars($_POST["abstract"]), $where);
             $edited = true;
         }
 
@@ -126,7 +126,7 @@ class NewArticleController extends ABaseController {
             $fileName = $this->dbArticles->getArticleFile($id);
 
             // edited file name is same
-            if ($_FILES["file"]["name"] == $fileName) {
+            if (htmlspecialchars($_FILES["file"]["name"]) == $fileName) {
                 if (!$this->fileService->receiveFile($fileName)) {
                     // notify user about failure
                     echo "<script>alert('Unable to upload file.');</script>";

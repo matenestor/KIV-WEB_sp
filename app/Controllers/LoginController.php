@@ -36,18 +36,19 @@ class LoginController extends ABaseController {
                 case "login":
                     // error message to display, when user is blocked or input wrong credentials
                     $err_msg = "";
+                    $userName = htmlspecialchars($_POST["username"]);
 
                     // if user is in database
-                    if ($userContr->getDBConn()->isUserInDB($_POST["username"])) {
+                    if ($userContr->getDBConn()->isUserInDB($userName)) {
                         // if user is allowed to login
-                        if ($userContr->getDBConn()->getUserAccess($_POST["username"]) == "ok") {
+                        if ($userContr->getDBConn()->getUserAccess($userName) == "ok") {
                             // get true user's password
-                            $password_hash = $userContr->getDBConn()->getUserPassword($_POST["username"]);
+                            $password_hash = $userContr->getDBConn()->getUserPassword($userName);
 
                             // if password is correct
                             if (password_verify($_POST["password"], $password_hash)) {
                                 // log in user
-                                $login->login($_POST["username"]);
+                                $login->login($userName);
                                 // set redirect to 'user' page
                                 $redirect = "Location: index.php?page=user";
                             }

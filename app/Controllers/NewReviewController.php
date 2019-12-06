@@ -30,7 +30,7 @@ class NewReviewController extends ABaseController {
                 $this->dbReview->updateReviewByIdReview("language", $_POST["language"], $_GET["id_review"]);
             }
             if (isset($_POST["comment"])) {
-                $this->dbReview->updateReviewByIdReview("comment", $_POST["comment"], $_GET["id_review"]);
+                $this->dbReview->updateReviewByIdReview("comment", htmlspecialchars($_POST["comment"]), $_GET["id_review"]);
             }
 
             // go back to user page after submit review
