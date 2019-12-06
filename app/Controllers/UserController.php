@@ -10,12 +10,12 @@ class UserController extends ABaseController {
 
     public function updateLastLogin() {
         global $login;
+        $userName = $login->getLoginUserName();
 
-        $column = "last_login";
+        // get login from this session
         $value = sprintf("%s", $login->getLoginUserDate());
-        $where = "user.id_user = ".$this->dbUser->getUserID($login->getLoginUserName());
-
-        $this->dbUser->updateLastLogin($column, $value, $where);
+        // set new last login value
+        $this->dbUser->updateLastLogin($userName, $value);
     }
 
     public function process() {

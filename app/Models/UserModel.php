@@ -130,11 +130,13 @@ class UserModel extends BaseModel {
     /**
      * Update user's last login.
      *
-     * @param $column
+     * @param $userName
      * @param $value
-     * @param $where
      */
-    public function updateLastLogin($column, $value, $where) {
+    public function updateLastLogin($userName, $value) {
+        $column = "last_login";
+        $where = TABLE_USER.".id_user = ".$this->getUserID($userName);
+
         parent::updateTable(TABLE_USER, $column, "'$value'", $where);
     }
 
