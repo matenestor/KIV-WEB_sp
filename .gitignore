@@ -91,15 +91,3 @@ fabric.properties
 .idea/**/markdown-navigator/
 
 # End of https://www.gitignore.io/api/phpstorm
-
-# do not import imported files in database
-files/
-
-# disable css/ and js/ folder -- i will keep them only for offline development
-# there is nothing coded from my side
-css/
-js/
-
-# my dev stuff
-templates/
-tmp/
