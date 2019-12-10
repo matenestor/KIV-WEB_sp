@@ -124,16 +124,21 @@ class AdminController extends ABaseController {
         $all_reviewers = $this->dbUser->getAllReviewers();
 
         // prepare attribute values
-        foreach ($attributes as $idx => $atr) {
-            $this->data["article".$idx]["attributes"] = $atr;
+        // foreach ($attributes as $idx => $atr) {
+        for ($i = 0; $i < count($attributes); $i++) {
+            $this->data["article".$attributes[$i]["id_article"]]["attributes"] = $attributes[$i];
         }
 
         // prepare reviews values
-        for ($i = 0, $j = 0; $i < count($reviews); $i+=3, $j++) {
-            $this->data["article".$j]["reviews"]["rev1"] = $reviews[$i];
-            $this->data["article".$j]["reviews"]["rev2"] = $reviews[$i+1];
-            $this->data["article".$j]["reviews"]["rev3"] = $reviews[$i+2];
+        foreach ($reviews as $rev) {
+            if (!isset($this->data["article".$rev["id_article"]]["reviews"])) {
+                $this->data["article".$rev["id_article"]]["reviews"] = [];
+            }
+
+            $count = count($this->data["article".$rev["id_article"]]["reviews"]) + 1;
+            $this->data["article".$rev["id_article"]]["reviews"]["rev".$count] = $rev;
         }
+
 
         // insert all reviewers to data array
         $this->data["all_revs"] = $all_reviewers;

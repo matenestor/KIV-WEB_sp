@@ -57,7 +57,7 @@ class ReviewsModel extends BaseModel {
      * @return array
      */
     public function getReviewsOfArticle():array {
-        $select = TABLE_USER.".username, ".TABLE_REVIEW.".originality, ".TABLE_REVIEW.".format, ".TABLE_REVIEW.".language, ".TABLE_REVIEW.".comment";
+        $select = TABLE_ARTICLE.".id_article, ".TABLE_USER.".username, ".TABLE_REVIEW.".originality, ".TABLE_REVIEW.".format, ".TABLE_REVIEW.".language, ".TABLE_REVIEW.".comment";
         $tableKey1 = TABLE_ARTICLE.".id_article";
         $tableKey2 = TABLE_REVIEW.".article_id_article";
         $tableKey3 = TABLE_USER.".id_user";
