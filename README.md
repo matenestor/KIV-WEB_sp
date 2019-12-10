@@ -23,7 +23,7 @@ Conference website for posting and reviewing articles.
         define("DB_PASS", "<your-password>");
     ```
 
-3. Go to url: _<adress-of-your-server>/KIV-WEB_sp_, eg <a href="localhost/KIV-WEB_sp">localhost/KIV-WEB_sp</a>
+3. Go to url: _\<adress-of-your-server\>/KIV-WEB_sp_, eg <a href="localhost/KIV-WEB_sp">localhost/KIV-WEB_sp</a>
 
 ## Default data
 
